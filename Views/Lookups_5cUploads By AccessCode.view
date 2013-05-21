@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='utf-8'?>
+<note class='view' xmlns='http://www.lotus.com/dxl' version='9.0' replicaid='852576A90050C2DD'>
+<noteinfo noteid='37a' unid='16FBEB89620E27678525780D0061BDFF' sequence='20'>
+<created><datetime>20110103T124736,31-05</datetime></created>
+<modified><datetime dst='true'>20110718T103335,28-04</datetime></modified>
+<revised><datetime dst='true'>20110718T103226,00-04</datetime></revised>
+<lastaccessed><datetime dst='true'>20120402T020702,25-04</datetime></lastaccessed>
+<addedtofile><datetime>20110124T150330,32-05</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Declan Sciolla-Lynch/O=Imagination</name></updatedby>
+<wassignedby><name>CN=Declan Sciolla-Lynch/O=Imagination</name></wassignedby>
+<item name='$FormulaClass' sign='true'><text>1</text></item>
+<item name='$V5ACTIONS' sign='true'>
+<rawitemdata type='1'>
+vRw/AAAAAQABAAAAAQAAAAAAAAABAAAJAAAAAHn/bAABAPDw8AABAAAAAAAJAAAAAAABAPDw8AAA
+AB8AAAAAAAAAAAADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAPz/OgAAAAAAAQAAAAAAAQAAAAAAAAAAAAwAAAAAAAAAAAAA
+AAAAAAAAAAEAAAAAAAAAAAAAAAAAAAC+/yYAAAAFAAAAnQEAAAsAAAAAAAAAQ2F0ZWdvcmlfemUA
+AQBOfL7/KAAAAAUAAACdAQAADgAAAAAAAABfRWRpdCBEb2N1bWVudAIAAgq+/ygAAAAFAAAAnQEA
+AA4AAAAAAAAAX1NlbmQgRG9jdW1lbnQDAAMKvv8iAAAABQAAAJ0BAAAIAAAAAAAAAF9Gb3J3YXJk
+BAAECr7/LAAAAAUAAACdAQAAEgAAAAAAAABfTW92ZSBUbyBGb2xkZXIuLi4FAD18vv8uAAAABQAA
+AJ0BAAATAAAAAAAAAF9SZW1vdmUgRnJvbSBGb2xkZXIABgA+fL7/IAAAAAQAAACdAQBABQAAAAAA
+AABfUmVhZAAHAF58vv8iAAAABAAAAJ0BAEAHAAAAAAAAAF9VbnJlYWQACABufL7/LgAAAAQAAACd
+AQBAEwAAAAAAAABfT3BlbiBpbiBOZXcgV2luZG93AAkAfny+/yQAAAAEAAAAnQEAQAkAAAAAAAAA
+X1ByaW50Li4uAAoAjny+/yIAAAAEAAAAnQEAQAcAAAAAAAAAX0RlbGV0ZQALAJ58vv8uAAAABAAA
+AJ0BAEAUAAAAAAAAAF9Eb2N1bWVudCBQcm9wZXJ0aWVzDACufL7/HgAAAAQAAACdAQBABAAAAAAA
+AABDX3V0DQC+fL7/IAAAAAQAAACdAQBABQAAAAAAAABfQ29weQAOAM58vv8wAAAABAAAAJ0BAEAW
+AAAAAAAAAENvcHkgYXMgRG9jdW1lbnQgX0xpbmsPAN58vv8oAAAABAAAAJ0BAEAOAAAAAAAAAENv
+cHkgYXMgX1RhYmxlEADufL7/IAAAAAQAAACdAQBABgAAAAAAAABQX2FzdGURAP58vv8gAAAABAAA
+AJ0BAEAFAAAAAAAAAF9PcGVuABIADn2+/yIAAAAEAAAAnQEAQAgAAAAAAAAAQm9va21hcmsTAB59
+</rawitemdata></item>
+<item name='$TITLE' sign='true'><text>Lookups\Uploads By AccessCode|lkp_UploadsBykey</text></item>
+<item name='$Index' sign='true'><text/></item>
+<item name='$Formula' summary='true' sign='true'><formula compiled='true'>
+VgAFACoAJgADAA8ACQAEAGZpbGVfQWNjZXNzQ29kZSRDb25mbGljdCRSRUYEAAQAAAAcAAUABABm
+b3JtAQAIAGZtX0ZpbGVzCgIDAAcACgAEAAlMMVM=
+</formula></item>
+<item name='$Collation' summary='true'>
+<rawitemdata type='2'>
+HAABAABEgGYAAAAPAGZpbGVfQWNjZXNzQ29kZQ==
+</rawitemdata></item>
+<item name='$ViewFormat' summary='true' sign='true'>
+<rawitemdata type='5'>
+AQABAAAACAAAAFZDAQAPAA8AAAAAAFAAAQAACgAAAAAAAAAAAAICAAAAZmlsZV9BY2Nlc3NDb2Rl
+ZmlsZV9BY2Nlc3NDb2RlJgABAAAAAQEACQEAAAoBAQAKAAABAK0rAQABAAEAAAAAAAAAAABXQwEB
+AAkAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAD//wAAAAAAAAAAAAAAAAAAQgAQAAAAAQD///8ABQD/
+//8AAQAAAAAAAAAAAAAAAAABAP///wABAP///wAAAAEAAAAAAAEAAAAAAAEAAAAAAAAACAAAAAAA
+AQA=
+</rawitemdata></item>
+<item name='$Comment' sign='true'><text>fileSendr V1.0.0</text></item>
+<item name='$DesignerVersion'><text>8.5.2</text></item>
+<item name='$XPageAlt'><text>Error.xsp</text></item>
+<item name='$Flags'><text>Y</text></item></note>
+

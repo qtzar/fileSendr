@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?><note class="form" replicaid="852576A90050C2DD" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="286" sequence="36" unid="27A8F7EF67976DE48525780100644046">
+<created><datetime>20101222T131500,54-05</datetime></created>
+<modified><datetime dst="true">20110718T103335,78-04</datetime></modified>
+<revised><datetime dst="true">20110718T103131,12-04</datetime></revised>
+<lastaccessed><datetime dst="true">20110718T103335,78-04</datetime></lastaccessed>
+<addedtofile><datetime>20101222T131501,91-05</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Declan Sciolla-Lynch/O=Imagination</name></updatedby>
+<item name="$Flags"><text>34567Cg~`</text></item>
+<item name="$Comment" sign="true"><text>fileSendr V1.1.0</text></item>
+<item name="$TITLE" sign="true"><text>browser_2_green.theme</text></item>
+<item name="$DesignerVersion"><text>8.5.2</text></item>
+
+
+<item name="$FileNames" sign="true"><text>browser_2_green.theme</text></item>
+<item name="$CSSFiles"><textlist><text>fileSendr.css</text><text>CustomBranding.css</text></textlist></item></note>

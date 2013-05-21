@@ -1,0 +1,18 @@
+<theme
+	extends="oneuiv2_gold"
+>
+	<resource>
+		<content-type>text/css</content-type>
+		<href>fileSendr.css</href>
+	</resource>
+	<resource>
+		<content-type>text/css</content-type>
+		<href>CustomBranding.css</href>
+	</resource>
+	<control>
+		<property>
+			<name>pageIcon</name>
+			<value>/favicon.png</value>
+		</property>
+	</control>
+</theme>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view
+	xmlns:xp="http://www.ibm.com/xsp/core"
+	rendered="false"
+	xmlns:xe="http://www.ibm.com/xsp/coreex"
+>
+	<h2>Xpages Async Multi File Uploader Custom Control v1.0</h2>
+	This XPage processess files uploaded by the uploader.
+	<xp:br></xp:br>
+	<br />
+	It saves the files to the server disk in the temp directory and subdirectory 'xspupload'. If the file is correctly uploaded this xpage returns the original file name and the file
+	name on the server.
+	<br />
+	<br />
+	Because of the file being renamed in the temp directory, the file will not automatically be deleted by the server. This will be done by the custom control when all files are
+	uploaded.
+	<xp:this.beforeRenderResponse><![CDATA[#{javascript:
+importPackage(java.io);
+
+try {
+
+	var exCon:javax.faces.context.ExternalContext = facesContext.getExternalContext();
+	var response:com.ibm.xsp.webapp.XspHttpServletResponse = exCon.getResponse();
+
+	
+	var request:com.sun.faces.context.MyHttpServletRequestWrapper = exCon.getRequest();
+	var map:java.util.Map = request.getParameterMap();
+ 
+ 	var fileData:com.ibm.xsp.http.UploadedFile = map.get("Filedata");
+    if (fileData == null){
+           response.setStatus(404, "Upload file can not be found... (upload.xsp)")
+           facesContext.responseComplete()
+    }else{
+    	var serverFile = fileData.getServerFile();
+ 	
+	 	var renamedFile = new java.io.File( serverFile.getParentFile().getAbsolutePath() + java.io.File.separator +	fileData.getClientFileName() );
+	 	
+	 	//rename the file on the OS so we can embed it with its correct name
+	 	serverFile.renameTo(renamedFile);
+	
+	  
+	    // tell in our response where the uploaded file has been saved 
+	    var out:javax.servlet.ServletOutputStream = response.getOutputStream();
+	    out.print(renamedFile.getAbsolutePath() + "#UPLOADEDFILE#" + serverFile.getAbsolutePath() );
+		out.close();
+	    	
+		// Signal that we have finished
+		facesContext.responseComplete()
+    }
+   
+ 	
+} catch (e) {
+	print ("error: " + e.toString() );
+} 
+}]]></xp:this.beforeRenderResponse>
+</xp:view>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?><note class="form" replicaid="852576A90050C2DD" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="152" sequence="73" unid="F408629446F13C2B852576A4004FE44B">
+<created><datetime>20100107T093237,87-05</datetime></created>
+<modified><datetime dst="true">20110718T103336,88-04</datetime></modified>
+<revised><datetime dst="true">20110718T103114,33-04</datetime></revised>
+<lastaccessed><datetime dst="true">20110718T103336,88-04</datetime></lastaccessed>
+<addedtofile><datetime>20100112T094207,86-05</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Declan Sciolla-Lynch/O=Imagination</name></updatedby>
+<wassignedby><name>CN=Declan Sciolla-Lynch/O=Imagination</name></wassignedby>
+<item name="$Flags"><text>gC~4;</text></item>
+<item name="$TITLE"><text>layout_Banner.xsp</text></item>
+
+<item name="$Comment" sign="true"><text>fileSendr V1.0.0</text></item>
+<item name="$DesignerVersion"><text>8.5.2</text></item>
+
+
+
+
+
+
+<item name="$FileNames" sign="true"><text>layout_Banner.xsp</text></item>
+
+</note>

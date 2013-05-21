@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view
+	xmlns:xp="http://www.ibm.com/xsp/core"
+>
+	<xp:panel
+		styleClass="lotusPlaceBar"
+	>
+		<xp:panel
+			styleClass="lotusRightCorner"
+		>
+			<xp:panel
+				styleClass="lotusInner"
+			>
+				<xp:panel
+					id="crumbs"
+					styleClass="crumbs"
+				>
+
+					<!-- Breadcrumb 1-->
+					<xp:image
+						url="theme_browser_breadcrumb_house.png"
+						id="bcrumb1Image"
+						styleClass="house"
+					>
+						<xp:this.rendered><![CDATA[#{javascript:if
+(sessionScope.bcrumb1on == true && sessionScope.bcrumb1link == false )
+{
+      return true;
+} else
+{
+      return false;
+}}]]></xp:this.rendered>
+					</xp:image>
+					<xp:link
+						escape="true"
+						id="bcrumb1Link"
+						value="/home.xsp"
+					>
+						<xp:this.rendered><![CDATA[#{javascript:if
+(sessionScope.bcrumb1on == true && sessionScope.bcrumb1link == true )
+{
+      return true;
+} else
+{
+      return false;
+}}]]></xp:this.rendered>
+						<xp:image
+							id="image4"
+							url="theme_browser_breadcrumb_house.png" />
+					</xp:link>
+
+					<!-- Breadcrumb 2-->
+					<xp:link
+						escape="true"
+						id="bcrumb2Link"
+						text="#{javascript:sessionScope.bcrumb2text}"
+						value="#{javascript:sessionScope.bcrumb2url}"
+					>
+						<xp:this.rendered><![CDATA[#{javascript:if
+(sessionScope.bcrumb2on == true && sessionScope.bcrumb2link == true )
+{
+      return true;
+} else
+{
+      return false;
+}}]]></xp:this.rendered>
+					</xp:link>
+					<xp:text
+						escape="true"
+						id="bcrumb2Text"
+						value="#{javascript:sessionScope.bcrumb2text}"
+					>
+						<xp:this.rendered><![CDATA[#{javascript:if
+(sessionScope.bcrumb2on == true && sessionScope.bcrumb2link == false )
+{
+      return true;
+} else
+{
+      return false;
+}}]]></xp:this.rendered>
+					</xp:text>
+
+					<!-- Breadcrumb 3-->
+					<xp:link
+						escape="true"
+						id="bcrumb3Link"
+						text="#{javascript:sessionScope.bcrumb3text}"
+						value="#{javascript:sessionScope.bcrumb3url}"
+					>
+						<xp:this.rendered><![CDATA[#{javascript:if
+(sessionScope.bcrumb3on == true && sessionScope.bcrumb3link == true )
+{
+      return true;
+} else
+{
+      return false;
+}}]]></xp:this.rendered>
+					</xp:link>
+					<xp:text
+						escape="true"
+						id="bcrumb3Text"
+						value="#{javascript:sessionScope.bcrumb3text}"
+					>
+						<xp:this.rendered><![CDATA[#{javascript:if
+(sessionScope.bcrumb3on == true && sessionScope.bcrumb3link == false )
+{
+      return true;
+} else
+{
+      return false;
+}}]]></xp:this.rendered>
+					</xp:text>
+
+					<!-- Breadcrumb 4-->
+					<xp:link
+						escape="true"
+						id="bcrumb4Link"
+						text="#{javascript:sessionScope.bcrumb4text}"
+						value="#{javascript:sessionScope.bcrumb4url}"
+					>
+						<xp:this.rendered><![CDATA[#{javascript:if
+(sessionScope.bcrumb4on == true && sessionScope.bcrumb4link == true )
+{
+      return true;
+} else
+{
+      return false;
+}}]]></xp:this.rendered>
+					</xp:link>
+					<xp:text
+						escape="true"
+						id="bcrumb4Text"
+						value="#{javascript:sessionScope.bcrumb4text}"
+					>
+						<xp:this.rendered><![CDATA[#{javascript:if
+(sessionScope.bcrumb4on == true && sessionScope.bcrumb4link == false )
+{
+      return true;
+} else
+{
+      return false;
+}}]]></xp:this.rendered>
+					</xp:text>
+
+					<!-- Breadcrumb 5-->
+					<xp:link
+						escape="true"
+						id="bcrumb5Link"
+						text="#{javascript:sessionScope.bcrumb5text}"
+						value="#{javascript:sessionScope.bcrumb5url}"
+					>
+						<xp:this.rendered><![CDATA[#{javascript:if
+(sessionScope.bcrumb5on == true && sessionScope.bcrumb5link == true )
+{
+      return true;
+} else
+{
+      return false;
+}}]]></xp:this.rendered>
+					</xp:link>
+					<xp:text
+						escape="true"
+						id="bcrumb5Text"
+						value="#{javascript:sessionScope.bcrumb5text}"
+					>
+						<xp:this.rendered><![CDATA[#{javascript:if
+(sessionScope.bcrumb5on == true && sessionScope.bcrumb5link == false )
+{
+      return true;
+} else
+{
+      return false;
+}}]]></xp:this.rendered>
+					</xp:text>
+				</xp:panel>
+			</xp:panel>
+		</xp:panel>
+	</xp:panel>
+</xp:view>

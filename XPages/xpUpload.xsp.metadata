@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><note class="form" replicaid="852576A90050C2DD" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="7e6" sequence="14" unid="C9A615DC22CFA1B9852578CF0063A9A5">
+<created><datetime dst="true">20110716T140834,93-04</datetime></created>
+<modified><datetime>20111223T160159,14-05</datetime></modified>
+<revised><datetime>20111223T160159,13-05</datetime></revised>
+<lastaccessed><datetime>20111223T160159,14-05</datetime></lastaccessed>
+<addedtofile><datetime dst="true">20110716T140834,94-04</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Declan Sciolla-Lynch/O=Imagination</name></updatedby>
+<wassignedby><name>CN=Declan Sciolla-Lynch/O=Imagination</name></wassignedby>
+<item name="$TITLE"><text>xpUpload.xsp</text></item>
+<item name="$Flags"><text>gC~4K</text></item>
+
+<item name="$Comment" sign="true"><text>XPages Async Multi File Uploader V1.0.2</text></item>
+
+
+
+
+<item name="$FileNames" sign="true"><text>xpUpload.xsp</text></item>
+<item name="$DesignerVersion"><text>8.5.2</text></item>
+
+</note>

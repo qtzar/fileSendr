@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view
+	xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex"
+>
+	<xp:panel
+		styleClass="lotusFrame"
+	>
+		<xc:layout_Banner />
+		<xc:layout_TitleBar />
+		<xc:layout_PlaceBar />
+		<xp:panel
+			styleClass="lotusMain"
+		>
+			<xc:browser_Config_menu />
+			<xp:panel
+				styleClass="lotusContent"
+			>
+				<xp:panel
+					styleClass="lotusMessage lotusWarning"
+					role="alert"
+				>
+					Amazon S3 storage is not enabled in the main application settings.
+					<xp:this.rendered><![CDATA[#{javascript:if(applicationScope.fileStorage == "local"){
+	return true;
+} else {
+	return false;
+}}]]></xp:this.rendered>
+				</xp:panel>
+				<xe:formTable
+					id="formTable1"
+					formTitle="Amazon AWS S3 Configuration"
+					formDescription="Please supply your Amazon S3 authentication details."
+					disableErrorSummary="true"
+					disableRowError="true"
+				>
+					<xe:this.rendered><![CDATA[#{javascript:if(applicationScope.fileStorage == "S3"){
+	return true;
+} else {
+	return false;
+}}]]></xe:this.rendered>
+					<xp:this.facets>
+						<xp:panel
+							xp:key="footer"
+							id="panel1"
+						>
+							<xp:link
+								escape="true"
+								text="Save Amazon Settings"
+								id="link1"
+								outerStyleClass="lotusBtn"
+							>
+								<xp:eventHandler
+									event="onclick"
+									submit="true"
+									refreshMode="complete"
+								>
+									<xp:this.action><![CDATA[#{javascript:var configView:NotesView = database.getView("lkp_cfg_ActiveConfig");
+var configDoc:NotesDocument = configView.getFirstDocument();
+
+configDoc.replaceItemValue("cfg_AWS_AccessKey",applicationScope.AWSAccessKey);
+configDoc.replaceItemValue("cfg_AWS_SecretKey",applicationScope.AWSSecretKey);
+configDoc.replaceItemValue("cfg_AWS_S3Bucket",applicationScope.AWSS3Bucket);
+
+configDoc.save(true,true);
+
+var msg = "Configuration Saved"
+var info = javax.faces.application.FacesMessage.SEVERITY_INFO;
+facesContext.addMessage(this.getClientId(facesContext),new javax.faces.application.FacesMessage(info, msg, msg));
+}]]></xp:this.action>
+								</xp:eventHandler>
+							</xp:link>
+						</xp:panel>
+					</xp:this.facets>
+					<xe:formRow
+						id="formRow1"
+						label="AWS Access Key"
+					>
+						<xp:inputText
+							id="inputText10"
+							value="#{applicationScope.AWSAccessKey}"
+							style="width:100%" />
+					</xe:formRow>
+					<xe:formRow
+						id="formRow2"
+						label="AWS Secret key"
+					>
+						<xp:inputText
+							id="inputText11"
+							value="#{applicationScope.AWSSecretKey}"
+							style="width:100%" />
+					</xe:formRow>
+					<xe:formRow
+						id="formRow4"
+						label="Sending Bucket"
+					>
+						<xp:inputText
+							id="inputText1"
+							value="#{applicationScope.AWSS3Bucket}"
+							style="width:100%" />
+					</xe:formRow>
+				</xe:formTable>
+				<xp:messages
+					id="messages1" />
+				<xp:panel
+					styleClass="lotusMessage lotusInfo"
+				>
+					The Amazon S3 Bucket must already exist in your Amazon S3 account.
+					<xp:this.rendered><![CDATA[#{javascript:if(applicationScope.fileStorage == "S3"){
+	return true;
+} else {
+	return false;
+}}]]></xp:this.rendered>
+				</xp:panel>
+			</xp:panel>
+		</xp:panel>
+		<xc:layout_Footer />
+	</xp:panel>
+</xp:view>

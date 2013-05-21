@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view
+	xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex"
+	dojoParseOnLoad="true"
+	dojoTheme="true"
+>
+	<xp:this.data>
+		<xp:dominoDocument
+			var="sendFilesDoc"
+			formName="fm_Files" />
+	</xp:this.data>
+	<xp:panel
+		styleClass="lotusFrame"
+	>
+		<xc:layout_Banner />
+		<xc:layout_TitleBar />
+		<xc:layout_PlaceBar />
+		<xp:panel
+			styleClass="lotusMain"
+		>
+			<xc:layout_Sidebar />
+			<xp:panel
+				styleClass="lotusContent"
+			>
+				<xe:formTable
+					id="formTable1"
+					formTitle="Send Files"
+					formDescription="Select the files you wish to upload and send to your recipients"
+					disableRowError="true"
+				>
+					<xe:formRow
+						id="formRow1"
+						label="Recipients"
+					>
+						<xp:inputText
+							id="fld_recipients"
+							value="#{sendFilesDoc.file_Recipients}"
+							style="width:97%"
+							required="true"
+							multipleSeparator=","
+						>
+							<xp:this.validators>
+								<xp:validateRequired
+									message="You must supply at least one recipient email address" />
+							</xp:this.validators>
+						</xp:inputText>
+					</xe:formRow>
+					<xe:formRow
+						id="formRow2"
+						label="Subject Line"
+					>
+						<xp:inputText
+							id="fld_subject"
+							value="#{sendFilesDoc.file_Subject}"
+							style="width:97%"
+							required="true"
+						>
+							<xp:this.validators>
+								<xp:validateRequired
+									message="You must supply a subject line" />
+							</xp:this.validators>
+						</xp:inputText>
+					</xe:formRow>
+					<xe:formRow
+						id="formRow6"
+						label="Message"
+					>
+						<xp:inputRichText
+							id="inputRichText1"
+							value="#{sendFilesDoc.file_CustomMessage}"
+						>
+						</xp:inputRichText>
+					</xe:formRow>
+					<xe:formRow
+						id="formRow4"
+						label="Attachments"
+					>
+						<xc:cc_FileUploader
+							uploadToPage="xpUpload.xsp"
+							cancelImg="cancel.png"
+							removeCompleted="false"
+							multiFile="true"
+							progressData="speed"
+							buttonText="Select files.."
+							queueSizeLimit="999"
+							uploadAsyncLimit="3"
+							documentDataSource="#{javascript:sendFilesDoc}"
+							fileQueueDivID="divUploadQueueList"
+							submitButtonID="button1"
+							richtTextFieldName="file_AttachedFiles" />
+						<div
+							class="fileUploadQueue uploadifyQueue"
+							id="divUploadQueueList" />
+					</xe:formRow>
+				</xe:formTable>
+				<xp:panel
+					id="panel1"
+				>
+					<xp:button
+						value="Upload Files And Send"
+						id="button1"
+					>
+						<xp:eventHandler
+							event="onclick"
+							submit="true"
+							refreshMode="complete"
+						>
+							<xp:this.action><![CDATA[#{javascript:// Get the current document and it's changes
+var thisDoc:NotesDocument = sendFilesDoc.getDocument(true);
+
+// Update a few extra variables and save it
+var accessCode:String = @Unique();
+var curDT:NotesDateTime = session.createDateTime("Today");
+curDT.setNow();
+thisDoc.replaceItemValue("file_Created",curDT);
+curDT.adjustDay(parseInt(applicationScope.MaxDownload))
+thisDoc.replaceItemValue("file_ExpiryDate",curDT);
+thisDoc.replaceItemValue("file_days",applicationScope.MaxDownload);
+thisDoc.replaceItemValue("file_Sender",context.getUser().getDistinguishedName());
+thisDoc.replaceItemValue("file_Storage","local");
+thisDoc.replaceItemValue("file_AccessCode",accessCode);
+thisDoc.save(true);
+	
+
+// Create The Mail Document
+var mailDoc:NotesDocument = database.createDocument();
+mailDoc.replaceItemValue("Form","Memo");
+
+// Setup the MIME Entity
+session.setConvertMime(false);
+var mailMIME:NotesMIMEEntity = mailDoc.createMIMEEntity();	
+// Setup the MIME Subject Header
+var mailMIMEHeaderSubject:NotesMIMEHeader = mailMIME.createHeader("Subject");
+mailMIMEHeaderSubject.setHeaderVal(applicationScope.emailPreSubject + " : " + thisDoc.getItemValueString("file_Subject"));
+	
+// Setup a NotesStream to write to the MIME Entity
+var mailStream:NotesStream = session.createStream();
+mailStream.writeText('<HTML>');
+mailStream.writeText('<body>');
+
+// Get The CKEditor Note Body
+var noteMIME:NotesMIMEEntity = thisDoc.getMIMEEntity("file_CustomMessage");
+	
+// Move It Into The Stream
+try{
+	mailStream.writeText(noteMIME.getContentAsText());
+}
+catch(err){
+	// Do Nothing There was no custom message
+}
+
+// Build the link to the file download
+mailStream.writeText('<p>' + applicationScope.emailDirectLink + '</p>');
+mailStream.writeText('<p>');
+mailStream.writeText('<a href="'+ @LeftBack(context.getUrl().getAddress(),"/") +'/getFiles.xsp?AccessID=' + accessCode + '">Click Here</a>');
+mailStream.writeText('</p>');
+mailStream.writeText('<p>' + applicationScope.emailIndirectLink + '</p>');
+mailStream.writeText('<p>');
+mailStream.writeText('Site : ' + @LeftBack(context.getUrl().getAddress(),"/") + '<br></br>');
+mailStream.writeText('Code : ' + accessCode + '<br></br>');
+mailStream.writeText('</p>');
+mailStream.writeText('<p>' + applicationScope.emailFooter + '</p>');
+
+// Close the notesStream and move it into the MIMEEntity
+mailStream.writeText('</body>');
+mailStream.writeText('</HTML>');
+mailMIME.setContentFromText(mailStream,"text/HTML;charset=UTF-8",0);
+
+// Build The TO Field and add it to the MIME Header.	
+// In MIME the TO field is a comma seperated list of email addresses.
+var toRecipients:Array = $A(thisDoc.getItemValue("file_Recipients"));
+var mailMIMEHeaderTo:NotesMIMEHeader = mailMIME.createHeader("To");
+mailMIMEHeaderTo.setHeaderVal(toRecipients.toString());
+	
+// Set The CC Field
+var mailMIMEHeaderCC:NotesMIMEHeader = mailMIME.createHeader("CC");
+mailMIMEHeaderCC.setHeaderVal(context.getUser().getDistinguishedName().toString());
+
+// Send The eMail
+mailDoc.send();
+session.setConvertMime(true);
+
+// Redirect To the ConfirmSent page
+context.redirectToPage("/confirmSent.xsp?AccessID=" + accessCode);
+}]]></xp:this.action>
+						</xp:eventHandler>
+					</xp:button>
+				</xp:panel>
+			</xp:panel>
+		</xp:panel>
+		<xc:layout_Footer />
+	</xp:panel>
+</xp:view>

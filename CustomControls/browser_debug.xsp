@@ -1,0 +1,640 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view
+	xmlns:xp="http://www.ibm.com/xsp/core"
+	dojoParseOnLoad="true"
+	dojoTheme="true"
+	xmlns:xc="http://www.ibm.com/xsp/custom"
+>
+	<xp:this.resources>
+		<xp:dojoModule
+			name="dijit.TitlePane" />
+	</xp:this.resources>
+	<xp:panel
+		dojoType="dijit.TitlePane"
+		rendered="#{javascript:compositeData.showDebug}"
+		id="pnlDebug"
+	>
+		<xp:this.title><![CDATA[#{javascript:if (compositeData.debugTitle  == null) { 
+	return "Debug Panel";
+}else{
+	return compositeData.debugTitle;
+}}]]></xp:this.title>
+		<xp:this.dojoAttributes>
+			<xp:dojoAttribute
+				name="open"
+				value="false" />
+		</xp:this.dojoAttributes>
+		<xp:panel
+			dojoType="dijit.TitlePane"
+			title="Application Scope"
+			id="pnlApplicationScope"
+		>
+			<xp:this.dojoAttributes>
+				<xp:dojoAttribute
+					name="open"
+					value="false" />
+			</xp:this.dojoAttributes>
+			<xp:link
+				escape="true"
+				text="refresh"
+				id="link1"
+			>
+				<xp:eventHandler
+					event="onclick"
+					submit="true"
+					refreshMode="partial"
+					refreshId="tb_Application" />
+			</xp:link>
+			<xp:br />
+			<xp:link
+				escape="true"
+				text="clear"
+				id="link2"
+			>
+				<xp:eventHandler
+					event="onclick"
+					submit="true"
+					refreshMode="complete"
+				>
+					<xp:this.action><![CDATA[#{javascript:var iter = applicationScope.keySet().iterator();
+while( iter.hasNext() ){ 
+   applicationScope.remove( iter.next() );
+}
+	   }]]></xp:this.action>
+					<xp:this.script><![CDATA[return confirm('Are you sure to clear the ApplicationScope?')]]></xp:this.script>
+				</xp:eventHandler>
+			</xp:link>
+			<xp:br />
+			<xp:br />
+			<xp:table
+				id="tb_Application"
+			>
+				<xp:tr>
+					<th>
+						<xp:label
+							id="label3"
+							value="Variable Name"
+							style="font-weight:bold" />
+					</th>
+					<th>
+						<xp:label
+							value="Variable Content"
+							id="label4" />
+					</th>
+				</xp:tr>
+				<xp:repeat
+					id="repeat4"
+					rows="50"
+					var="scopeData1"
+				>
+					<xp:this.value><![CDATA[#{javascript:v = new java.util.Vector(applicationScope.keySet());
+java.util.Collections.sort(v);
+return v;}]]></xp:this.value>
+					<xp:tr>
+						<xp:td>
+							<xp:text
+								escape="true"
+								id="computedField7"
+								value="#{javascript:scopeData1}" />
+						</xp:td>
+						<xp:td>
+							<xp:text
+								escape="true"
+								id="computedField8"
+								value="#{javascript:applicationScope.get(scopeData1)}" />
+						</xp:td>
+					</xp:tr>
+				</xp:repeat>
+			</xp:table>
+		</xp:panel>
+		<xp:panel
+			dojoType="dijit.TitlePane"
+			title="Session Scope"
+			id="pnlSessionScope"
+		>
+			<xp:this.dojoAttributes>
+				<xp:dojoAttribute
+					name="open"
+					value="false" />
+			</xp:this.dojoAttributes>
+			<xp:link
+				escape="true"
+				text="refresh"
+				id="link3"
+			>
+				<xp:eventHandler
+					event="onclick"
+					submit="true"
+					refreshMode="partial"
+					refreshId="tb_Session" />
+			</xp:link>
+			<xp:br />
+			<xp:link
+				escape="true"
+				text="clear"
+				id="link4"
+			>
+				<xp:eventHandler
+					event="onclick"
+					submit="true"
+					refreshMode="complete"
+				>
+					<xp:this.action><![CDATA[#{javascript:var iter = sessionScope.keySet().iterator();
+while( iter.hasNext() ){ 
+   sessionScope.remove( iter.next() );
+}
+	 }]]></xp:this.action>
+					<xp:this.script><![CDATA[return confirm('Are you sure to clear the SessionScope?')]]></xp:this.script>
+				</xp:eventHandler>
+			</xp:link>
+			<xp:br />
+			<xp:br />
+			<xp:table
+				id="tb_Session"
+			>
+				<xp:tr>
+					<th>
+						<xp:label
+							id="label1"
+							value="Variable Name"
+							style="font-weight:bold" />
+					</th>
+					<th>
+						<xp:label
+							value="Variable Content"
+							id="label2" />
+					</th>
+				</xp:tr>
+				<xp:repeat
+					id="repeat5"
+					rows="50"
+					var="scopeData2"
+				>
+					<xp:this.value><![CDATA[#{javascript:v = new java.util.Vector(sessionScope.keySet());
+java.util.Collections.sort(v);
+return v;}]]></xp:this.value>
+					<xp:tr>
+						<xp:td>
+							<xp:text
+								escape="true"
+								id="computedField9"
+								value="#{javascript:scopeData2}" />
+						</xp:td>
+						<xp:td>
+							<xp:text
+								escape="true"
+								id="computedField10"
+								value="#{javascript:sessionScope.get(scopeData2)}" />
+						</xp:td>
+					</xp:tr>
+				</xp:repeat>
+			</xp:table>
+		</xp:panel>
+		<xp:panel
+			dojoType="dijit.TitlePane"
+			title="View Scope"
+			id="pnlViewScope"
+		>
+			<xp:this.dojoAttributes>
+				<xp:dojoAttribute
+					name="open"
+					value="false" />
+			</xp:this.dojoAttributes>
+			<xp:link
+				escape="true"
+				text="refresh"
+				id="link5"
+			>
+				<xp:eventHandler
+					event="onclick"
+					submit="true"
+					refreshMode="partial"
+					refreshId="tb_View" />
+			</xp:link>
+			<xp:br />
+			<xp:link
+				escape="true"
+				text="clear"
+				id="link6"
+			>
+				<xp:eventHandler
+					event="onclick"
+					submit="true"
+					refreshMode="complete"
+				>
+					<xp:this.action><![CDATA[#{javascript:var iter = viewScope.keySet().iterator();
+while( iter.hasNext() ){ 
+   viewScope.remove( iter.next() );
+}}]]></xp:this.action>
+					<xp:this.script><![CDATA[return confirm('Are you sure to clear the ViewScope?')]]></xp:this.script>
+				</xp:eventHandler>
+			</xp:link>
+			<xp:br />
+			<xp:br />
+			<xp:table
+				id="tb_View"
+			>
+				<xp:tr
+					styleClass="debugHead"
+				>
+					<th>
+						<xp:label
+							id="label5"
+							value="Variable Name"
+							style="font-weight:bold" />
+					</th>
+					<th>
+						<xp:label
+							value="Variable Content"
+							id="label6" />
+					</th>
+				</xp:tr>
+				<xp:repeat
+					id="repeat6"
+					rows="50"
+					var="scopeData3"
+				>
+					<xp:this.value><![CDATA[#{javascript:v = new java.util.Vector(viewScope.keySet());
+java.util.Collections.sort(v);
+return v;}]]></xp:this.value>
+					<xp:tr>
+						<xp:td>
+							<xp:text
+								escape="true"
+								id="computedField11"
+								value="#{javascript:scopeData3}" />
+						</xp:td>
+						<xp:td>
+							<xp:text
+								escape="true"
+								id="computedField12"
+								value="#{javascript:viewScope.get(scopeData3)}" />
+						</xp:td>
+					</xp:tr>
+				</xp:repeat>
+			</xp:table>
+		</xp:panel>
+		<xp:panel
+			dojoType="dijit.TitlePane"
+			title="Request Scope"
+			id="pnlRequestScope"
+		>
+			<xp:this.dojoAttributes>
+				<xp:dojoAttribute
+					name="open"
+					value="false" />
+			</xp:this.dojoAttributes>
+			<xp:link
+				escape="true"
+				text="refresh"
+				id="link7"
+			>
+				<xp:eventHandler
+					event="onclick"
+					submit="true"
+					refreshMode="partial"
+					refreshId="tb_Request" />
+			</xp:link>
+			<xp:br />
+			<xp:link
+				escape="true"
+				text="clear"
+				id="link8"
+			>
+				<xp:eventHandler
+					event="onclick"
+					submit="true"
+					refreshMode="complete"
+				>
+					<xp:this.action><![CDATA[#{javascript:var iter = requestScope.keySet().iterator();
+while( iter.hasNext() ){ 
+   requestScope.remove( iter.next() );
+}}]]></xp:this.action>
+					<xp:this.script><![CDATA[return confirm('Are you sure to clear the RequestScope?')]]></xp:this.script>
+				</xp:eventHandler>
+			</xp:link>
+			<xp:br />
+			<xp:br />
+			<xp:table
+				id="tb_Request"
+			>
+				<xp:tr>
+					<th>
+						<xp:label
+							id="label7"
+							value="Variable Name"
+							style="font-weight:bold" />
+					</th>
+					<th>
+						<xp:label
+							value="Variable Content"
+							id="label8" />
+					</th>
+				</xp:tr>
+				<xp:repeat
+					id="repeat7"
+					rows="50"
+					var="scopeData4"
+				>
+					<xp:this.value><![CDATA[#{javascript:
+v = new java.util.Vector(requestScope.keySet());
+java.util.Collections.sort(v);
+return v;}]]></xp:this.value>
+					<xp:tr>
+						<xp:td>
+							<xp:text
+								escape="true"
+								id="computedField13"
+								value="#{javascript:scopeData4}" />
+						</xp:td>
+						<xp:td>
+							<xp:text
+								escape="true"
+								id="computedField14"
+								value="#{javascript:requestScope.get(scopeData4)}" />
+						</xp:td>
+					</xp:tr>
+				</xp:repeat>
+			</xp:table>
+		</xp:panel>
+		<xp:panel
+			dojoType="dijit.TitlePane"
+			title="URL Params"
+			id="panel1"
+		>
+			<xp:this.dojoAttributes>
+				<xp:dojoAttribute
+					name="open"
+					value="false" />
+			</xp:this.dojoAttributes>
+			<xp:link
+				escape="true"
+				text="refresh"
+				id="link9"
+			>
+				<xp:eventHandler
+					event="onclick"
+					submit="true"
+					refreshMode="partial"
+					refreshId="tb_Params" />
+			</xp:link>
+			<xp:br />
+			<xp:br />
+			<xp:table
+				id="tb_Params"
+			>
+				<xp:tr>
+					<th>
+						<xp:label
+							id="label13"
+							value="Variable Name"
+							style="font-weight:bold" />
+					</th>
+					<th>
+						<xp:label
+							value="Variable Content"
+							id="label14" />
+					</th>
+				</xp:tr>
+				<xp:repeat
+					id="repeat8"
+					rows="50"
+					var="scopeData4"
+				>
+					<xp:this.value><![CDATA[#{javascript:
+v = new java.util.Vector(param.keySet());
+java.util.Collections.sort(v);
+return v;}]]></xp:this.value>
+					<xp:tr>
+						<xp:td>
+							<xp:text
+								escape="true"
+								id="computedField19"
+								value="#{javascript:scopeData4}" />
+						</xp:td>
+						<xp:td>
+							<xp:text
+								escape="true"
+								id="computedField20"
+								value="#{javascript:param.get(scopeData4)}" />
+						</xp:td>
+					</xp:tr>
+				</xp:repeat>
+			</xp:table>
+		</xp:panel>
+		<xp:panel
+			dojoType="dijit.TitlePane"
+			title="User Information"
+			id="panel2"
+		>
+			<xp:this.dojoAttributes>
+				<xp:dojoAttribute
+					name="open"
+					value="false" />
+			</xp:this.dojoAttributes>
+			<xp:table
+				border="1"
+			>
+				<xp:tr>
+					<xp:td
+						style="background-color:rgb(192,192,192);border-color:rgb(128,128,128)"
+					>
+						<xp:label
+							id="label9"
+							value="User Variable Name"
+							style="font-weight:bold" />
+					</xp:td>
+					<xp:td
+						style="width:400.0px;background-color:rgb(192,192,192)"
+					>
+						<xp:label
+							value="User Variable Content"
+							id="label10"
+							style="font-weight:bold" />
+					</xp:td>
+				</xp:tr>
+				<xp:tr>
+					<xp:td
+						style="width:150.0px"
+					>current username</xp:td>
+					<xp:td>
+						<xp:text
+							escape="true"
+							id="computedField2"
+							value="#{javascript:@UserName();}" />
+					</xp:td>
+				</xp:tr>
+				<xp:tr>
+					<xp:td>current user access level</xp:td>
+					<xp:td>
+						<xp:text
+							escape="true"
+							id="computedField3"
+						>
+							<xp:this.value><![CDATA[#{javascript:var iLevel:Int = database.getCurrentAccessLevel()
+
+if (iLevel == 1) {
+	return "Depositor"
+}
+if (iLevel == 2) {
+	return "Reader"
+}
+if (iLevel == 3) {
+	return "Author"
+}
+// if you have manager access, you still would be an editor in xpages (web)
+if (iLevel == 4) {
+	return "Editor"
+}
+if (iLevel == 5) {
+	return "Designer"
+}
+if (iLevel == 6) {
+	return "Manager"
+}
+
+}]]></xp:this.value>
+						</xp:text>
+					</xp:td>
+				</xp:tr>
+				<xp:tr>
+					<xp:td>current userroles</xp:td>
+					<xp:td>
+						<xp:repeat
+							id="repeat1"
+							rows="100"
+							var="rowRole"
+						>
+							<xp:this.value><![CDATA[#{javascript:v = new java.util.Vector(context.getUser().getRoles());
+java.util.Collections.sort(v);
+return v;}]]></xp:this.value>
+							<xp:text
+								escape="true"
+								id="computedField1"
+								value="#{javascript:rowRole}" />
+							<xp:br />
+						</xp:repeat>
+					</xp:td>
+				</xp:tr>
+				<xp:tr>
+					<xp:td>current user groups</xp:td>
+					<xp:td>
+						<xp:repeat
+							id="repeat2"
+							rows="200"
+							var="rowGroup"
+						>
+							<xp:this.value><![CDATA[#{javascript:v = new java.util.Vector(context.getUser().getGroups());
+java.util.Collections.sort(v);
+return v;}]]></xp:this.value>
+							<xp:text
+								escape="true"
+								id="computedField4"
+								value="#{javascript:rowGroup}" />
+							<xp:br />
+						</xp:repeat>
+					</xp:td>
+				</xp:tr>
+			</xp:table>
+		</xp:panel>
+		<xp:panel
+			dojoType="dijit.TitlePane"
+			title="Browser Information"
+			id="panel3"
+		>
+			<xp:this.dojoAttributes>
+				<xp:dojoAttribute
+					name="open"
+					value="false" />
+			</xp:this.dojoAttributes>
+			<xp:table
+				border="1"
+			>
+				<xp:tr>
+					<xp:td
+						style="width:150.0px;background-color:rgb(192,192,192)"
+					>
+						<xp:label
+							id="label11"
+							value="Browser Variable Name"
+							style="font-weight:bold" />
+					</xp:td>
+					<xp:td
+						style="width:400.0px;background-color:rgb(192,192,192)"
+					>
+						<xp:label
+							value="Browser Variable Content"
+							id="label12"
+							style="font-weight:bold" />
+					</xp:td>
+				</xp:tr>
+				<xp:tr>
+					<xp:td>current cookies</xp:td>
+					<xp:td>
+						<xp:repeat
+							id="repeat3"
+							rows="100"
+							var="rowCookie"
+						>
+							<xp:this.value><![CDATA[#{javascript:v = new java.util.Vector(cookie.keySet());
+java.util.Collections.sort(v);
+return v;}]]></xp:this.value>
+							<xp:table>
+								<xp:tr>
+									<xp:td
+										style="width:150.0px"
+									>
+										<xp:text
+											escape="true"
+											id="computedField5"
+											value="#{javascript:rowCookie}" />
+									</xp:td>
+									<xp:td>
+										<xp:text
+											escape="true"
+											id="computedField6"
+											value="#{javascript:cookie.get(rowCookie).getValue();}" />
+									</xp:td>
+								</xp:tr>
+							</xp:table>
+						</xp:repeat>
+					</xp:td>
+				</xp:tr>
+				<xp:tr>
+					<xp:td>browser language</xp:td>
+					<xp:td>
+						<xp:text
+							escape="true"
+							id="computedField16"
+							value="#{javascript:context.getLocaleString()}" />
+						/
+						<xp:text
+							escape="true"
+							id="computedField15"
+							value="#{javascript:context.getLocale().getDisplayName()}" />
+					</xp:td>
+				</xp:tr>
+				<xp:tr>
+					<xp:td>browser type and version</xp:td>
+					<xp:td>
+						<xp:text
+							escape="true"
+							id="computedField17"
+						>
+							<xp:this.value><![CDATA[#{javascript:context.getUserAgent().getBrowser() + " " +  context.getUserAgent().getBrowserVersion()}]]></xp:this.value>
+						</xp:text>
+					</xp:td>
+				</xp:tr>
+				<xp:tr>
+					<xp:td>browser timezone</xp:td>
+					<xp:td>
+						<xp:text
+							escape="true"
+							id="computedField18"
+							value="#{javascript:context.getTimeZoneString()}" />
+					</xp:td>
+				</xp:tr>
+			</xp:table>
+		</xp:panel>
+	</xp:panel>
+</xp:view>

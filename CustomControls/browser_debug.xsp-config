@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config>
+	<faces-config-extension>
+		<namespace-uri>http://www.ibm.com/xsp/custom</namespace-uri>
+		<default-prefix>xc</default-prefix>
+	</faces-config-extension>
+	<composite-component>
+		<component-type>browser_debug</component-type>
+		<composite-name>browser_debug</composite-name>
+		<composite-file>/browser_debug.xsp</composite-file>
+		<composite-extension>
+			<designer-extension>
+				<in-palette>true</in-palette>
+				<render-markup>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&#xd;
+&lt;xp:view xmlns:xp="http://www.ibm.com/xsp/core"&gt;&#xd;
+&lt;xp:panel&gt;## Xpages Debug Custom Control v1.1 by Ferry Kranenburg ##&lt;/xp:panel&gt;&#xd;
+&lt;/xp:view&gt;</render-markup>
+      </designer-extension>
+    </composite-extension>
+    <property>
+      <property-name>showDebug</property-name>
+      <property-class>boolean</property-class>
+      <property-extension>
+        <designer-extension>
+          <default-value>true</default-value>
+        </designer-extension>
+      </property-extension>
+    </property>
+    <property>
+      <property-name>debugTitle</property-name>
+      <property-class>string</property-class>
+    </property>
+  </composite-component>
+</faces-config>

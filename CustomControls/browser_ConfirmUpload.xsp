@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view
+	xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex"
+>
+	<xp:panel
+		styleClass="lotusFrame"
+	>
+		<xc:layout_Banner />
+		<xc:layout_TitleBar />
+		<xc:layout_PlaceBar />
+		<xp:panel
+			styleClass="lotusMain"
+		>
+			<xp:panel
+				styleClass="lotusContent"
+			>
+				<xe:formTable
+					id="formTable1"
+					formTitle="Your Files Have Been Uploaded"
+					formDescription="Your files have been uploaded to the system and a notice has been sent to the authorizer so that they can access the files."
+				>
+				</xe:formTable>
+			</xp:panel>
+		</xp:panel>
+		<xc:layout_Footer />
+	</xp:panel>
+</xp:view>

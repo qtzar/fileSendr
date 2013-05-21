@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config>
+	<faces-config-extension>
+		<namespace-uri>http://www.ibm.com/xsp/custom</namespace-uri>
+		<default-prefix>xc</default-prefix>
+	</faces-config-extension>
+	<composite-component>
+		<component-type>cc_FileUploader</component-type>
+		<composite-name>cc_FileUploader</composite-name>
+		<composite-file>/cc_FileUploader.xsp</composite-file>
+		<composite-extension>
+			<designer-extension>
+				<in-palette>true</in-palette>
+				<render-markup>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&#xd;
+&lt;xp:view xmlns:xp="http://www.ibm.com/xsp/core"&gt;&#xd;
+&lt;xp:panel&gt;&lt;xp:label value="Xpages Async Multi File Uploader Custom Control v1.01 by Ferry Kranenburg" id="label3" style="font-weight:bold;font-size:10pt"&gt;&lt;/xp:label&gt;&lt;/xp:panel&gt;&#xd;
+&lt;/xp:view&gt;</render-markup>
+      </designer-extension>
+    </composite-extension>
+    <property>
+      <property-name>submitButtonID</property-name>
+      <property-class>string</property-class>
+      <property-extension>
+        <required>true</required>
+      </property-extension>
+      <description>The id of the button that submits or saves the page. The custom control will 'hook' itself in the 'querysubmit' event of the button, so that all files are uploaded before the document is saved.</description>
+    </property>
+    <property>
+      <property-name>inputTypeID</property-name>
+      <property-class>string</property-class>
+      <description>Optional. When not specified this control will create the 'browse' button for selecting files.&#xd;
+When specified, enter the client id of the input element on your xpage, in this example 'file_upload'. The input element must be specified like :&#xd;
+&lt;input type=\"file\" id=\"file_upload\" name=\"file_upload\" /&gt;&#xd;
+&#xd;
+&#xd;
+&#xd;
+Do not use serverside xpages controls!</description>
+    </property>
+    <property>
+      <property-name>documentDataSource</property-name>
+      <property-class>java.lang.Object</property-class>
+      <property-extension>
+        <required>true</required>
+      </property-extension>
+      <description>The datasource where the files must be uploaded, this must be the NotesXSPdocument object.&#xd;
+e.g. 'document1' or 'dominoDocument1'</description>
+    </property>
+    <property>
+      <property-name>richtTextFieldName</property-name>
+      <property-class>string</property-class>
+      <description>Rich text field name where the files must be uploaded in. It is not recommended to use the same field for uploading files and storing text.&#xd;
+e.g. 'Files'</description>
+      <property-extension>
+        <required>true</required>
+      </property-extension>
+    </property>
+    <property>
+      <property-name>fileQueueDivID</property-name>
+      <property-class>string</property-class>
+      <description>Optional. Specify the id of the div where the queue list will be shown. If not specified, a default queue list will be created under the 'browse' button. For the div, do not use a xp:div or xp:panel. While testing I found that does not work.&#xd;
+&#xd;
+Use for example:&#xd;
+   &lt;div id=\"divUploadQueuList\" style=\"background-color: #505050; height: 200px; margin-bottom: 10px; padding:10px; overflow: auto; width: 374px;\"&gt;&#xd;
+&#xd;
+   &lt;/div&gt;</description>
+    </property>
+    <property>
+      <property-name>uploadToPage</property-name>
+      <property-class>string</property-class>
+      <property-extension>
+        <required>true</required>
+        <designer-extension>
+          <default-value>xpUpload.xsp</default-value>
+        </designer-extension>
+      </property-extension>
+      <description>Path to the xpage processing the upload. When specifing a xpage inside this application, anonymous access must have at least 'depositor' access with 'create public documents' rights. If this is really not an option, I found a workaround:&#xd;
+&#xd;
+Create a database on your server where anonymous access is allowed and only paste the 'xpUpload.xsp' xpage in it.&#xd;
+Set the ACL for anonymous access as specified. Internal users do not need access to this database, only anonymous, you and the server!&#xd;
+Make sure the Xpage can upload file sizes you need (specified in application properties).  &#xd;
+You can now use the external xpage for your file uploads:&#xd;
+e.g. '../uploaddb.nsf/xpUpload.xsp'</description>
+    </property>
+    <property>
+      <property-name>cancelImg</property-name>
+      <property-class>string</property-class>
+      <property-extension>
+        <designer-extension>
+          <default-value>cancel.png</default-value>
+        </designer-extension>
+        <required>true</required>
+      </property-extension>
+      <description>path to image file for the 'cancel' button</description>
+    </property>
+    <property>
+      <property-name>removeCompleted</property-name>
+      <property-class>boolean</property-class>
+      <property-extension>
+        <designer-extension>
+          <default-value>false</default-value>
+        </designer-extension>
+        <required>true</required>
+      </property-extension>
+      <description>when true, uploaded files are automatically removed from the filelist</description>
+    </property>
+    <property>
+      <property-name>multiFile</property-name>
+      <property-class>boolean</property-class>
+      <property-extension>
+        <designer-extension>
+          <default-value>true</default-value>
+        </designer-extension>
+        <required>true</required>
+      </property-extension>
+      <description>allow selection for multiple files at once in the file dialog.</description>
+    </property>
+    <property>
+      <property-name>progressData</property-name>
+      <property-class>string</property-class>
+      <property-extension>
+        <designer-extension>
+          <editor>com.ibm.workplace.designer.property.editors.comboParameterEditor</editor>
+          <editor-parameter>percentage&#xd;
+speed</editor-parameter>
+          <default-value>speed</default-value>
+        </designer-extension>
+        <required>false</required>
+      </property-extension>
+      <description>Show the upload speed or the percentage completed while uploading.</description>
+    </property>
+    <property>
+      <property-name>buttonImg</property-name>
+      <property-class>string</property-class>
+      <description>Optional. Specify custom 'browse' image. e.g. 'browse.jpg'.&#xd;
+</description>
+      <property-extension>
+        <required>false</required>
+      </property-extension>
+    </property>
+    <property>
+      <property-name>buttonText</property-name>
+      <property-class>string</property-class>
+      <property-extension>
+        <designer-extension>
+          <default-value>Select files..</default-value>
+        </designer-extension>
+        <required>false</required>
+      </property-extension>
+      <description>Text on the button for browsing files. This can not be used in combination with a buttonImg.</description>
+    </property>
+    <property>
+      <property-name>fileExt</property-name>
+      <property-class>string</property-class>
+      <description>Optional. String of file extensions allowed for uploading&#xd;
+&#xd;
+e.g. '*.pdf;*.doc;*.xls'</description>
+      <property-extension>
+        <required>false</required>
+      </property-extension>
+    </property>
+    <property>
+      <property-name>fileDesc</property-name>
+      <property-class>string</property-class>
+      <description>Optional. File type text in the browse for files dialog .&#xd;
+&#xd;
+e.g. 'Uploadable files (.JPG, .GIF, .PNG, .PDF)'</description>
+      <property-extension>
+        <required>false</required>
+      </property-extension>
+    </property>
+    <property>
+      <property-name>queueSizeLimit</property-name>
+      <property-class>int</property-class>
+      <property-extension>
+        <designer-extension>
+          <default-value>999</default-value>
+        </designer-extension>
+        <required>true</required>
+      </property-extension>
+      <description>maximum number of files allowed in the queue list. IE has a problem with more than 3 files, specify 3 if you encounter these problems.</description>
+    </property>
+    <property>
+      <property-name>uploadAsyncLimit</property-name>
+      <property-class>string</property-class>
+      <description>allows you to set the maximum number of uploads that can run simultaneously</description>
+      <property-extension>
+        <designer-extension>
+          <default-value>3</default-value>
+        </designer-extension>
+        <required>true</required>
+      </property-extension>
+    </property>
+    <property>
+      <property-name>sizeLimit</property-name>
+      <property-class>int</property-class>
+      <property-extension>
+        <required>false</required>
+      </property-extension>
+      <description>Optional. Limit the total file size before it's being uploaded.&#xd;
+&#xd;
+e.g. 102400</description>
+    </property>
+  </composite-component>
+</faces-config>

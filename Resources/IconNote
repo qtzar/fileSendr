@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<note default='true' class='icon' xmlns='http://www.lotus.com/dxl' version='9.0'
+ replicaid='852576A90050C2DD'>
+<noteinfo noteid='122' unid='53C58A356CB9C6BB852576A4004F80BD' sequence='0'>
+<created><datetime>20100107T092823,01-05</datetime></created>
+<modified><datetime dst='true'>20110718T102325,06-04</datetime></modified>
+<revised><datetime dst='true'>20110718T102157,41-04</datetime></revised>
+<lastaccessed><datetime dst='true'>20110718T102325,06-04</datetime></lastaccessed>
+<addedtofile><datetime>20100112T094207,84-05</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Declan Sciolla-Lynch/O=Imagination</name></updatedby>
+<item name='IconBitmap' summary='true'>
+<rawitemdata type='6'>
+AiAgAQAA///////wD///gAH//gAAf/wAAD/4AAAf8AAAD+AAAAfgAAAHwAAAA8AAAAPAAAADgAAA
+AYAAAAGAAAABgAAAAYAAAAGAAAABgAAAAYAAAAHAAAADwAAAA8AAAAPgAAAH4AAAB/AAAA/4AAAf
+/AAAP/4AAH//gAH///AP//////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAiIiIiAAAAAAAAAAAAAAI
+jPZmZm/IgAAAAAAAAAAIjGZmZmZmZsiAAAAAAAAAjGZmZmZmZmZmyAAAAAAACMZmZmZmZmZmZmyA
+AAAAAIxmZmZmZmZmZmZmyAAAAAjGZmZmZmZmZmZmZmyAAAAIZmbyL2byL2byL2ZmgAAAjGZmIiJm
+IiJmIiJmZsgAAIZmZiIiZiIiZiIiZmZoAADGZmYiImYiImYiImZmbAAI9mZmIiJmIiJmIiJmZm+A
+CGZmZiIiZiIiZiIiZmZmgAhmZmYiImYiImYiImZmZoAIZmZmIiJmIiJmIiJmZmaACGZvIiIiZiIi
+ZiIiIvZmgAhmYiIiImYiImYiIiImZoAIZm8iIi9m8i9m8iIi9maACPZmZmZmZmZmZmZmZmZvgADG
+ZmbyL2byL2byL2ZmbAAAj2ZmIiJmIiJmIiJmZvgAAIxmZiIiZiIiZiIiZmbIAAAI9mbyL2byL2by
+L2ZvgAAACMZmZmZmZmZmZmZmbIAAAACMZmZmZmZmZmZmZsgAAAAACMZmZmZmZmZmZmyAAAAAAACM
+9mZmZmZmZm/IAAAAAAAACIz2ZmZmZm/IgAAAAAAAAAAIiMZmZmyIgAAAAAAAAAAAAACIiIiIAAAA
+AAAAUEECICABAAD/////+A4DgA==
+</rawitemdata></item>
+<item name='$DefaultClientXPage'><text>Home.xsp</text></item>
+<item name='$TemplateModTime'><datetime>20110110T171245,73-05</datetime></item>
+<item name='$TemplateServerName'><text>CN=Declan Sciolla-Lynch/O=Imagination</text></item>
+<item name='$TemplateFileName'><text>c:\Program Files (x86)\IBM\Lotus\Notes\Data\FileSendr.ntf</text></item>
+<item name='$DefaultXPage'><text>home.xsp</text></item>
+<item name='$DBTheme'><text>browser_2_blue.theme</text></item>
+<item name='$TITLE'><text>FileSendr
+</text></item>
+<item name='$Flags'><text>J7!</text></item>
+<item name='$FlagsNoRefresh'><text>rv</text></item>
+<item name='$Daos'><text>0</text></item></note>
+

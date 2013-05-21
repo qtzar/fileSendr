@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><note class="form" replicaid="852576A90050C2DD" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="55e" sequence="11" unid="1C49FF8BD8B986FD8525781100721FCB">
+<created><datetime>20110107T154632,43-05</datetime></created>
+<modified><datetime dst="true">20110716T133035,77-04</datetime></modified>
+<revised><datetime dst="true">20110716T133035,76-04</datetime></revised>
+<lastaccessed><datetime dst="true">20110716T133035,77-04</datetime></lastaccessed>
+<addedtofile><datetime>20110124T150330,34-05</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Declan Sciolla-Lynch/O=Imagination</name></updatedby>
+<wassignedby><name>CN=Declan Sciolla-Lynch/O=Imagination</name></wassignedby>
+<item name="$TITLE"><text>package_delete.png</text></item>
+<item name="$Flags"><text>345CgQ</text></item>
+<item name="$FlagsExt"><text>D</text></item>
+<item name="$FileModDT" sign="true"><datetime>20101116T170733,30-05</datetime></item>
+<item name="$DesignerVersion"><text>8.5.3</text></item>
+
+
+<item name="$FileNames" sign="true"><text>package_delete.png</text></item></note>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view
+	xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex"
+>
+	<xp:panel
+		styleClass="lotusFrame"
+	>
+		<xc:layout_Banner />
+		<xc:layout_TitleBar />
+		<xc:layout_PlaceBar />
+		<xp:panel
+			styleClass="lotusMain"
+		>
+			<xc:browser_Config_menu />
+			<xp:panel
+				styleClass="lotusContent"
+			>
+				<xe:formTable
+					id="formTable1"
+					formTitle="Login Screen Settings"
+					formDescription="Enter the text that you would like to appear on the application login screen."
+					disableRowError="true"
+					disableErrorSummary="true"
+				>
+					<xp:this.facets>
+						<xp:panel
+							xp:key="footer"
+							id="panel1"
+						>
+							<xp:link
+								escape="true"
+								text="Save Configuration"
+								id="link1"
+								outerStyleClass="lotusBtn"
+							>
+								<xp:eventHandler
+									event="onclick"
+									submit="true"
+									refreshMode="complete"
+								>
+									<xp:this.action><![CDATA[#{javascript:var configView:NotesView = database.getView("lkp_cfg_ActiveConfig");
+var configDoc:NotesDocument = configView.getFirstDocument();
+
+configDoc.replaceItemValue("cfg_login_market_title",applicationScope.loginMarketTitle);
+configDoc.replaceItemValue("cfg_login_market_text",applicationScope.loginMarketText);
+configDoc.replaceItemValue("cfg_login_legal1",applicationScope.loginLegal1);
+configDoc.replaceItemValue("cfg_login_legal2",applicationScope.loginLegal2);
+
+configDoc.save(true,true);
+
+var msg = "Configuration Saved"
+var info = javax.faces.application.FacesMessage.SEVERITY_INFO;
+facesContext.addMessage(this.getClientId(facesContext),new javax.faces.application.FacesMessage(info, msg, msg));
+}]]></xp:this.action>
+								</xp:eventHandler>
+							</xp:link>
+						</xp:panel>
+					</xp:this.facets>
+					<xe:formRow
+						id="formRow1"
+						label="Marketing Title"
+					>
+						<xp:inputText
+							id="inputText3"
+							value="#{applicationScope.loginMarketTitle}"
+							style="width:100%" />
+					</xe:formRow>
+					<xe:formRow
+						id="formRow2"
+						label="Marketing Text"
+					>
+						<xp:inputText
+							id="inputText4"
+							value="#{applicationScope.loginMarketText}"
+							style="width:100%" />
+					</xe:formRow>
+					<xe:formRow
+						id="formRow3"
+						label="Legal Line One"
+					>
+						<xp:inputText
+							id="inputText5"
+							value="#{applicationScope.loginLegal1}"
+							style="width:100%" />
+					</xe:formRow>
+					<xe:formRow
+						id="formRow4"
+						label="Legal Line Two"
+					>
+						<xp:inputText
+							id="inputText1"
+							value="#{applicationScope.loginLegal2}"
+							style="width:100%" />
+					</xe:formRow>
+				</xe:formTable>
+				<xp:messages
+					id="messages1" />
+			</xp:panel>
+		</xp:panel>
+		<xc:layout_Footer />
+	</xp:panel>
+</xp:view>

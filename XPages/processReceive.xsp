@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view
+	xmlns:xp="http://www.ibm.com/xsp/core"
+	rendered="false"
+>
+	fileSendrr&#160; &#160;V1.1.0
+	<xp:this.beforeRenderResponse><![CDATA[#{javascript:// Load The Java Packages
+print("DOJOX.Form.FileUpload To Amazon S3 : Started");
+print("DOJOX.Form.FileUpload To Amazon S3 : Load com.amazonaws package");
+importPackage(java.io);
+importPackage(java.util);
+importPackage(com.amazonaws);
+
+try {
+	print ("DOJOX.Form.FileUpload To Amazon S3 : get Access To The Uploaded File");
+	
+	var exCon:javax.faces.context.ExternalContext = facesContext.getExternalContext();
+	var response:com.ibm.xsp.webapp.XspHttpServletResponse = exCon.getResponse();
+	
+	var request:com.sun.faces.context.MyHttpServletRequestWrapper = exCon.getRequest();
+	var map:java.util.Map = request.getParameterMap();
+ 
+ 	var fileData:com.ibm.xsp.http.UploadedFile = map.get("flashUploadFiles");
+ 	var uploadDays = map.get("uploadDays");
+ 	var uploadFolder = map.get("uploadFolder");
+ 	print ("DOJOX.Form.FileUpload To Amazon S3 : Upload Key : " + uploadFolder);
+ 	print ("DOJOX.Form.FileUpload To Amazon S3 : Upload Days : " + uploadDays);
+ 	
+ 	print ("DOJOX.Form.FileUpload To Amazon S3 : Temporary File Name : " + fileData.getClientFileName());
+ 		
+ 	var tempFile = fileData.getServerFile();
+ 	var correctedFile = new java.io.File( tempFile.getParentFile().getAbsolutePath() + java.io.File.separator + fileData.getClientFileName() );
+ 		
+ 	// rename the file on the OS so we can embed it with its correct name
+ 	print ("DOJOX.Form.FileUpload To Amazon S3 : Corrected File Name : " + correctedFile.getAbsolutePath() );
+ 	var success = tempFile.renameTo(correctedFile);
+ 	var uploadKey = fileData.getClientFileName();
+
+	// Work out the number of days to keep files around.
+	var dt:NotesDateTime = session.createDateTime("Today");
+	dt.setNow();
+	dt.adjustDay(parseInt(uploadDays));
+
+	// Setup the AWS S3 Credentials
+	if (applicationScope.recieveStorage == "S3"){
+		print("DOJOX.Form.FileUpload To Amazon S3 : Setup AWS Credentials");
+		var myAWSAccessKey:String = applicationScope.AWSAccessKey;
+		var myAWSSecretKey:String = applicationScope.AWSSecretKey;
+		var myAWSCredentials:com.amazonaws.auth.AWSCredentials = new com.amazonaws.auth.BasicAWSCredentials(myAWSAccessKey, myAWSSecretKey);
+
+		// Open a session to Amazon S3
+		print("DOJOX.Form.FileUpload To Amazon S3 : Open Amazon AWS Session");
+		var myS3Service:com.amazonaws.services.s3.AmazonS3 = new com.amazonaws.services.s3.AmazonS3Client(myAWSCredentials);
+
+		// Upload The File To the Specified Bucket
+		print("DOJOX.Form.FileUpload To Amazon S3 : Upload File To Bucket");
+		var uploadBucket = applicationScope.recieveAWSS3Bucket;
+		var uploadKey = fileData.getClientFileName();
+		var uploadResult:com.amazonaws.services.s3.model.PutObjectResult = myS3Service.putObject(uploadBucket,uploadFolder + "/" + uploadKey,correctedFile);
+	
+		// Generate Presigned URL
+		print("DOJOX.Form.FileUpload To Amazon S3 : Generating Presigned URL");
+		var uploadURL = myS3Service.generatePresignedUrl(uploadBucket,uploadFolder + "/" + uploadKey,dt.toJavaDate());
+
+		// Close The S3 Session
+		print("DOJOX.Form.FileUpload To Amazon S3 : Close Amazon AWS Session");
+	}
+	
+	// Find or Create An Upload Document.
+	print("DOJOX.Form.FileUpload To Amazon S3 : Looking For Upload Document");
+	print("DOJOX.Form.FileUpload To Amazon S3 : " + sessionAsSigner.getEffectiveUserName());
+	var thisDB:NotesDatabase = sessionAsSigner.getDatabase(session.getServerName(),session.getCurrentDatabase().getFilePath());
+	var uploadView:NotesView = thisDB.getView("lkp_AuthKeys");
+	var uploadDoc:NotesDocument = uploadView.getDocumentByKey(uploadFolder);
+
+	if (applicationScope.receiveStorage == "S3"){
+		print("DOJOX.Form.FileUpload To Amazon S3 : Saving S3 Upload URL");
+		uploadDoc.replaceItemValue("file_Storage","S3");
+		if (uploadDoc.hasItem("file_AttachedURLs")) {
+			var uploadItem:NotesItem = uploadDoc.getFirstItem("file_AttachedURLs");
+			uploadItem.appendToTextList(uploadURL.toString());
+ 		} else {
+ 			uploadDoc.replaceItemValue("file_AttachedURLs",uploadURL.toString());
+ 		}
+	} else {
+		print("DOJOX.Form.FileUpload To Amazon S3 : Saving Attachment Locally");
+		uploadDoc.replaceItemValue("file_Storage","local");
+		if (uploadDoc.hasItem("file_AttachedFiles")) {
+			//print("DOJOX.Form.FileUpload To Amazon S3 : Getting Existing RichText Field");
+			var uploadField:NotesRichTextItem = uploadDoc.getFirstItem("file_AttachedFiles");
+			//print("DOJOX.Form.FileUpload To Amazon S3 : Embedding Attachment");
+			uploadField.addNewLine();
+ 			uploadField.embedObject(1454, "", correctedFile.getAbsolutePath(), null);
+ 		} else {
+			//print("DOJOX.Form.FileUpload To Amazon S3 : Creating New RichText Field");
+			var uploadField:NotesRichTextItem = uploadDoc.createRichTextItem("file_AttachedFiles");
+			//print("DOJOX.Form.FileUpload To Amazon S3 : Embedding Attachment");
+			uploadField.embedObject(1454, "", correctedFile.getAbsolutePath(), null);
+ 		}
+	}
+
+	print("DOJOX.Form.FileUpload To Amazon S3 : Saving Upload Document.");
+	uploadDoc.replaceItemValue("IsUsed","true");
+	uploadDoc.save(true);
+	
+	//rename the temporary file back to its original name so it's automatically removed from the os' file system.
+	print("DOJOX.Form.FileUpload To Amazon S3 : Rename Temp File Back To Original");
+ 	correctedFile.renameTo(tempFile);
+
+	// Send a reply back to the uploader
+	print("DOJOX.Form.FileUpload To Amazon S3 : Send Response To Uploader");
+	var out:javax.servlet.ServletOutputStream = response.getOutputStream();
+	out.print("file="+correctedFile.getAbsolutePath()+",name=" + uploadKey);
+	out.close();
+
+	// Signal that we have finished
+	print("DOJOX.Form.FileUpload To Amazon S3 : Finished");
+	facesContext.responseComplete();
+} catch (e) {
+	print ("error: " + e.toString() );
+} 
+}]]></xp:this.beforeRenderResponse>
+	<xp:br></xp:br>
+	<xp:br></xp:br>
+	This XPage uses the beforeRenderResponse code block to process the file uploaded to it.
+	<xp:br></xp:br>
+	<xp:br></xp:br>
+	FileDate is stored in an object called&#160;flashUploadFiles
+	<xp:br></xp:br>
+	The upload Folder is stored in uploadFolder ( used as the upload ID for links and for the Amazon S3 folder )
+	<xp:br></xp:br>
+	The number of days to generate the url for is pass in uploadDays
+</xp:view>

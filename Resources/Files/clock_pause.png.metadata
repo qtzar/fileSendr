@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><note class="form" replicaid="852576A90050C2DD" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="566" sequence="11" unid="4EA1F04C6FA7110185257811007295F9">
+<created><datetime>20110107T155134,97-05</datetime></created>
+<modified><datetime dst="true">20110716T133036,88-04</datetime></modified>
+<revised><datetime dst="true">20110716T133036,87-04</datetime></revised>
+<lastaccessed><datetime dst="true">20110716T133036,88-04</datetime></lastaccessed>
+<addedtofile><datetime>20110124T150329,90-05</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Declan Sciolla-Lynch/O=Imagination</name></updatedby>
+<wassignedby><name>CN=Declan Sciolla-Lynch/O=Imagination</name></wassignedby>
+<item name="$TITLE"><text>clock_pause.png</text></item>
+<item name="$Flags"><text>345CgQ</text></item>
+<item name="$FlagsExt"><text>D</text></item>
+<item name="$FileModDT" sign="true"><datetime>20101116T170722,89-05</datetime></item>
+<item name="$DesignerVersion"><text>8.5.3</text></item>
+
+
+<item name="$FileNames" sign="true"><text>clock_pause.png</text></item></note>

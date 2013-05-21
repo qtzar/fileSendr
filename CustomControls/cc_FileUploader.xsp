@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view
+	xmlns:xp="http://www.ibm.com/xsp/core"
+	dojoParseOnLoad="true"
+	dojoTheme="true"
+>
+	<xp:this.resources>
+		<xp:script
+			src="jquery-1.6.2.min.js"
+			clientSide="true"
+		></xp:script>
+		<xp:script
+			src="jquery.uploadify.v2.1.4.min.js"
+			clientSide="true"
+		>
+		</xp:script>
+		<xp:script
+			src="/swfobject.js"
+			clientSide="true"
+		></xp:script>
+	</xp:this.resources>
+	<xp:this.beforeRenderResponse><![CDATA[#{javascript://Copyright 2010 Mark Leusink - Apache 2.0 Licensed
+
+/*
+ * function to retrieve the client side id of the onclick event of a button
+ */
+var getEventId = function ( buttonId, eventType ) {
+   if (buttonId == null) { return null; }
+   
+   //get the button control
+   var btn = getComponent(buttonId);
+
+   //find the onclick event
+   var events = btn.getChildren();
+   var it = events.iterator();
+   var eventClientId = null;
+
+   while (it.hasNext() ) {
+      var evt = it.next();
+   
+      if( typeof evt == "com.ibm.xsp.component.xp.XspEventHandler") {
+         if (evt.getEvent() == eventType) {
+            eventClientId = getClientId( evt.getId() );  
+            break;
+         }
+      }
+   }
+   return eventClientId;
+}}]]></xp:this.beforeRenderResponse>
+	<xp:text
+		escape="false"
+		id="cf_InputFile"
+	>
+		<xp:this.value><![CDATA[#{javascript:return  "<input type=\"file\" id=\"file_upload\" name=\"file_upload\" />"}]]></xp:this.value>
+		<xp:this.rendered><![CDATA[#{javascript:if (compositeData.inputTypeID == null){
+	return true
+}
+if (compositeData.inputTypeID.equals("") == true){
+	return true
+}else{
+	return false
+}}]]></xp:this.rendered>
+	</xp:text>
+	<xp:eventHandler
+		event="onClientLoad"
+		submit="false"
+	>
+		<xp:this.script><![CDATA[var submitButtonId = '#{javascript:getClientId(compositeData.submitButtonID);}';
+var submitOnClickEventId = '#{javascript:getEventId(compositeData.submitButtonID, "onclick");}';
+var inputTypeId = '##{javascript:if (compositeData.inputTypeID != null){	return compositeData.inputTypeID}else{return "file_upload" } if (compositeData.inputTypeID.equals("") == false){	return compositeData.inputTypeID}else{return "file_upload"};}';
+
+var form = XSP.findForm('#{javascript:getClientId(compositeData.submitButtonID)}');
+XSP.addQuerySubmitListener(form.id, function() {
+	$(inputTypeId).uploadifyUpload();
+	if (dojo.byId('#{id:hdnAllowSubmit}').value == 0){
+		return false;
+	}else{
+		return true;
+	}
+}, submitOnClickEventId, 'fileUploadQuerySave' );
+      
+      var allFileResponses=new Array(); 
+      
+      $(inputTypeId).uploadify({
+          'uploader'    : 'uploadify.swf',
+          'script'      : '#{javascript:compositeData.uploadToPage}',
+          'cancelImg'   : '#{javascript:compositeData.cancelImg}',
+          'folder'      : '',
+          'removeCompleted' : #{javascript:compositeData.removeCompleted},
+          'auto'        : false,
+          'multi'       : #{javascript:compositeData.multiFile},
+          'displayData' : '#{javascript:compositeData.progressData}',
+          'buttonImg'   : '#{javascript:compositeData.buttonImg}',
+          'buttonText'  : '#{javascript:compositeData.buttonText}',
+          'fileExt'     : '#{javascript:compositeData.fileExt}',
+          'fileDesc'    : '#{javascript:compositeData.fileDesc}',
+          'method'      : 'get',
+          'queueID'     : '#{javascript:compositeData.fileQueueDivID}',          
+          'queueSizeLimit' : #{javascript:compositeData.queueSizeLimit},
+          'simUploadLimit' : #{javascript:compositeData.uploadAsyncLimit},
+          'sizeLimit'   : '#{javascript:compositeData.sizeLimit}',
+          'onSelectOnce' : function(event,data) {
+               if (data.filesSelected > 0){
+                  dojo.byId('#{id:hdnAllowSubmit}').value = 0;
+               }
+             },
+          'onCancel' : function(event,ID,fileObj,data) {
+               if (data.fileCount == 0){
+                  dojo.byId('#{id:hdnAllowSubmit}').value = 1;
+               }
+             },
+
+          'onAllComplete': function(){
+               XSP.setSubmitValue(allFileResponses.join(",")); 
+               XSP.partialRefreshPost('#{id:cf_EmbedUploadedFilesToDoc}', {
+                                  onComplete: function() {
+                                       dojo.byId('#{id:hdnAllowSubmit}').value = 1;
+                                       XSP.setSubmitValue("");
+                                       XSP.allowSubmit();
+                                       XSP.fireEvent(null, submitOnClickEventId, submitButtonId, true, 2);
+                                  }});
+              
+          },
+          'onComplete'  : function(event, ID, fileObj, response, data) {
+               allFileResponses.push(response);
+          }
+         
+});
+      ]]></xp:this.script>
+	</xp:eventHandler>
+	<xp:text
+		style="display:none"
+		escape="true"
+		id="cf_EmbedUploadedFilesToDoc"
+	>
+		<xp:this.value><![CDATA[#{javascript:var map = facesContext.getExternalContext().getRequestParameterMap(); 
+var fileUploadResponse = map.get('$$xspsubmitvalue'); 
+var bSaveDocument = false
+
+var fileRichTextItem:String = compositeData.richtTextFieldName
+var uploadField:NotesRichTextItem = null;
+
+var hdnAllowSubmit:com.ibm.xsp.component.xp.XspInputHidden = getComponent("hdnAllowSubmit");
+
+// only upload anything then there is something to upload.
+if (hdnAllowSubmit.getValue() == 0){
+   if (@Contains(fileUploadResponse, "#UPLOADEDFILE#")){
+      var arrFiles:Array = @Explode(fileUploadResponse, ",");
+
+      
+      if (compositeData.documentDataSource.getDocument().hasItem(fileRichTextItem)){
+         uploadField = compositeData.documentDataSource.getDocument().getFirstItem(fileRichTextItem);
+         if (uploadField == null){
+            uploadField = compositeData.documentDataSource.getDocument().createRichTextItem(fileRichTextItem);
+         }
+      }else{
+         uploadField = compositeData.documentDataSource.getDocument().createRichTextItem(fileRichTextItem);
+      }
+      
+
+      for(i=0;i<@Elements(arrFiles);i=i+1){
+         var fileUploadRenamed = new java.io.File(@Word(arrFiles[i], "#UPLOADEDFILE#", 1))
+         if (fileUploadRenamed.exists()){
+            bSaveDocument = true
+            uploadField.embedObject(lotus.domino.local.EmbeddedObject.EMBED_ATTACHMENT, "", fileUploadRenamed.getAbsolutePath(), null);
+
+            // rename the file back to its original
+            fileUploadRenamed.renameTo(new java.io.File(@Word(arrFiles[i], "#UPLOADEDFILE#", 2)));
+         }
+      }
+      if (bSaveDocument == true){
+         compositeData.documentDataSource.save()
+         // do not allow to run again
+         hdnAllowSubmit.setValue(1);
+      }
+   }
+}
+
+}]]></xp:this.value>
+	</xp:text>
+	<xp:inputHidden
+		id="hdnAllowSubmit"
+		value="1"
+	></xp:inputHidden>
+</xp:view>

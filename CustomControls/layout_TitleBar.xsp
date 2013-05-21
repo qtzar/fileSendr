@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view
+	xmlns:xp="http://www.ibm.com/xsp/core"
+>
+	<xp:panel
+		styleClass="lotusTitleBar"
+	>
+		<xp:panel
+			styleClass="lotusRightCorner"
+		>
+			<xp:panel
+				styleClass="lotusInner"
+			>
+				<xp:text
+					escape="true"
+					id="computedField1"
+					value="#{applicationScope.appName}"
+					tagName="h2"
+				></xp:text>
+			</xp:panel>
+		</xp:panel>
+	</xp:panel>
+</xp:view>

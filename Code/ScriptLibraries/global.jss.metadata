@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?><note class="filter" replicaid="852576A90050C2DD" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="27a" sequence="40" unid="C1D88BCF0947FF5C852578010063F7B6">
+<created><datetime>20101222T131154,78-05</datetime></created>
+<modified><datetime dst="true">20110716T152632,76-04</datetime></modified>
+<revised><datetime dst="true">20110716T152632,75-04</datetime></revised>
+<lastaccessed><datetime dst="true">20110716T152632,76-04</datetime></lastaccessed>
+<addedtofile><datetime>20101222T131154,97-05</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Declan Sciolla-Lynch/O=Imagination</name></updatedby>
+<wassignedby><name>CN=Declan Sciolla-Lynch/O=Imagination</name></wassignedby>
+<item name="$POID"><datetime>20110110T171044,41-05</datetime></item>
+<item name="$TITLE" sign="true"><text>global</text></item>
+<item name="$Flags"><text>.5834Q</text></item>
+<item name="$PublicAccess" sign="true"><text>1</text></item>
+<item name="$DesignerVersion"><text>8.5.3</text></item>
+
+<item name="$Comment"><text>fileSendr V1.2.0</text></item></note>

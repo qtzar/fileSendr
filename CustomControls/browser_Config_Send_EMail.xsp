@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view
+	xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex"
+>
+	<xp:panel
+		styleClass="lotusFrame"
+	>
+		<xc:layout_Banner />
+		<xc:layout_TitleBar />
+		<xc:layout_PlaceBar />
+		<xp:panel
+			styleClass="lotusMain"
+		>
+			<xc:browser_Config_menu />
+			<xp:panel
+				styleClass="lotusContent"
+			>
+				<xe:formTable
+					id="formTable1"
+					formTitle="EMail Settings"
+					formDescription="Enter the text that you would like to appear in EMails sent by the system."
+					disableErrorSummary="true"
+					disableRowError="true"
+				>
+					<xp:this.facets>
+						<xp:panel
+							xp:key="footer"
+							id="panel1"
+						>
+							<xp:link
+								escape="true"
+								text="Save Configuration"
+								id="link1"
+								outerStyleClass="lotusBtn"
+							>
+								<xp:eventHandler
+									event="onclick"
+									submit="true"
+									refreshMode="complete"
+								>
+									<xp:this.action><![CDATA[#{javascript:var configView:NotesView = database.getView("lkp_cfg_ActiveConfig");
+var configDoc:NotesDocument = configView.getFirstDocument();
+
+configDoc.replaceItemValue("cfg_email_subject",applicationScope.emailPreSubject);
+configDoc.replaceItemValue("cfg_email_direct",applicationScope.emailDirectLink);
+configDoc.replaceItemValue("cfg_email_indirect",applicationScope.emailIndirectLink);
+configDoc.replaceItemValue("cfg_email_footer",applicationScope.emailFooter);
+configDoc.replaceItemValue("cfg_email_fromOverride",applicationScope.emailFromOverride);
+configDoc.replaceItemValue("cfg_email_fromAddress",applicationScope.emailFromAddress);
+
+configDoc.save(true,true);
+
+var msg = "Configuration Saved"
+var info = javax.faces.application.FacesMessage.SEVERITY_INFO;
+facesContext.addMessage(this.getClientId(facesContext),new javax.faces.application.FacesMessage(info, msg, msg));
+}]]></xp:this.action>
+								</xp:eventHandler>
+							</xp:link>
+						</xp:panel>
+					</xp:this.facets>
+					<xe:formRow
+						id="formRow1"
+						label="Subject Prefix"
+					>
+						<xp:inputText
+							id="inputText3"
+							value="#{applicationScope.emailPreSubject}"
+							style="width:100%" />
+					</xe:formRow>
+					<xe:formRow
+						id="formRow2"
+						label="Direct Link"
+					>
+						<xp:inputText
+							id="inputText4"
+							value="#{applicationScope.emailDirectLink}"
+							style="width:100%" />
+					</xe:formRow>
+					<xe:formRow
+						id="formRow3"
+						label="Indirect Link"
+					>
+						<xp:inputText
+							id="inputText5"
+							value="#{applicationScope.emailIndirectLink}"
+							style="width:100%" />
+					</xe:formRow>
+					<xe:formRow
+						id="formRow4"
+						label="Email Footer"
+					>
+						<xp:inputText
+							id="inputText1"
+							value="#{applicationScope.emailFooter}"
+							style="width:100%" />
+					</xe:formRow>
+					<xe:formRow
+						id="formRow7"
+						label="Override From Address"
+					>
+						<xp:radioGroup
+							id="radioGroup1"
+							value="#{applicationScope.emailFromOverride}"
+						>
+							<xp:selectItem
+								itemLabel="Use Logged In Users Address"
+								itemValue="false" />
+							<xp:selectItem
+								itemLabel="Use Specified From Address"
+								itemValue="true" />
+						</xp:radioGroup>
+					</xe:formRow>
+					<xe:formRow
+						id="formRow8"
+						label="From Address"
+					>
+						<xp:inputText
+							id="inputText7"
+							value="#{applicationScope.emailFromAddress}"
+							style="width:100%" />
+					</xe:formRow>
+				</xe:formTable>
+				<xp:messages
+					id="messages1" />
+			</xp:panel>
+		</xp:panel>
+		<xc:layout_Footer />
+	</xp:panel>
+</xp:view>

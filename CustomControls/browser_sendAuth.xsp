@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view
+	xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex"
+	dojoParseOnLoad="true"
+	dojoTheme="true"
+>
+	<xp:panel
+		styleClass="lotusFrame"
+	>
+		<xc:layout_Banner />
+		<xc:layout_TitleBar />
+		<xc:layout_PlaceBar />
+		<xp:panel
+			styleClass="lotusMain"
+		>
+			<xc:layout_Sidebar />
+			<xp:panel
+				styleClass="lotusContent"
+			>
+				<xe:formTable
+					id="formTable1"
+					formTitle="Send Authorization Key"
+					formDescription="A one time only use authorization key will be sent to each recipient that you specify. You can send to multiple recipients by separating their email addresses with a comma or semicolon."
+					disableRowError="false"
+					disableErrorSummary="true"
+					fieldHelp="true"
+				>
+					<xp:this.facets>
+						<xp:panel
+							xp:key="footer"
+							id="panel1"
+						>
+							<xp:link
+								escape="true"
+								text="Send Authorization Key"
+								id="link1"
+								outerStyleClass="lotusBtn"
+							>
+								<xp:eventHandler
+									event="onclick"
+									submit="true"
+									refreshMode="complete"
+								>
+									<xp:this.action><![CDATA[#{javascript:// Build a loop because a seperate key will be sent to each recipient.
+var recipientArray = $A(@Explode(sessionScope.receiveRecipients));
+for(var i = 1; i <= @Elements(recipientArray); i++) {
+
+	// Build a new upload document for this recipient
+	print("fileSendr : Processing :" + @Element(recipientArray, i));
+	var thisAuthKey = @Unique();
+	var uploadDoc:NotesDocument = database.createDocument();
+	uploadDoc.replaceItemValue("form","fm_Auth");
+	uploadDoc.replaceItemValue("AuthKey",thisAuthKey);
+	uploadDoc.replaceItemValue("sender",session.getEffectiveUserName());
+	uploadDoc.replaceItemValue("Uploader",@Element(recipientArray, i));
+	uploadDoc.replaceItemValue("Subject",sessionScope.receiveSubject);
+	if (sessionScope.receiveMessage != null) {
+		var body:com.ibm.xsp.http.MimeMultipart = sessionScope.receiveMessage;
+		var stream:NotesStream = session.createStream();
+		stream.writeText(body.getHTML());
+		var entity:NotesMIMEEntity = uploadDoc.createMIMEEntity("Message");
+		entity.setContentFromText(stream,"text/html;charset=UTF-8", 1725);
+		stream.close();
+	}
+	uploadDoc.replaceItemValue("IsUsed","false");
+	var dt:NotesDateTime = session.createDateTime("Today");
+	dt.setNow();
+	dt.adjustDay(parseInt(applicationScope.receiveMaxUpload));
+	uploadDoc.replaceItemValue("Expires",dt.getDateOnly());
+	var authorsItem:NotesItem = uploadDoc.replaceItemValue("Authors","*");
+	authorsItem.setAuthors(true);
+	uploadDoc.save();
+
+	
+	// Build the email message for this recipient.
+	var mailDoc:NotesDocument = database.createDocument();
+	mailDoc.replaceItemValue("Form","Memo");
+
+	// Setup the MIME Entity
+	session.setConvertMime(false);
+	var mailMIME:NotesMIMEEntity = mailDoc.createMIMEEntity();	
+	// Setup the MIME Subject Header
+	var mailMIMEHeaderSubject:NotesMIMEHeader = mailMIME.createHeader("Subject");
+	mailMIMEHeaderSubject.setHeaderVal(applicationScope.receiveemailPreSubject + sessionScope.receiveSubject);
+	
+	// Setup a NotesStream to write to the MIME Entity
+	var mailStream:NotesStream = session.createStream();
+	mailStream.writeText('<HTML>');
+	mailStream.writeText('<body>');
+
+	if (sessionScope.receiveMessage != null) {
+		var recMessage:com.ibm.xsp.http.MimeMultipart = sessionScope.receiveMessage;
+		stream.writeText(recMessage.getHTML());
+	}
+
+	// Build the link to the file download
+	mailStream.writeText('<p>' + applicationScope.receiveemailDirectLink + '</p>');
+	mailStream.writeText('<p>');
+	mailStream.writeText('<a href="'+ @LeftBack(context.getUrl().getAddress(),"/") +'/uploadFiles.xsp?AuthID=' + thisAuthKey + '">Click Here</a>');
+	mailStream.writeText('</p>');
+	mailStream.writeText('<p>' + applicationScope.receiveemailIndirectLink + '</p>');
+	mailStream.writeText('<p>');
+	mailStream.writeText('Site : ' + @LeftBack(context.getUrl().getAddress(),"/") + '<br></br>');
+	mailStream.writeText('Code : ' + thisAuthKey + '<br></br>');
+	mailStream.writeText('</p>');
+	mailStream.writeText('<p>' + applicationScope.receiveemailFooter + '</p>');
+
+	// Close the notesStream and move it into the MIMEEntity
+	mailStream.writeText('</body>');
+	mailStream.writeText('</HTML>');
+	mailMIME.setContentFromText(mailStream,"text/HTML;charset=UTF-8",0);
+
+	// Build The TO Field and add it to the MIME Header.	
+	// In MIME the TO field is a comma seperated list of email addresses.
+	var mailMIMEHeaderTo:NotesMIMEHeader = mailMIME.createHeader("To");
+	mailMIMEHeaderTo.setHeaderVal(@Element(recipientArray, i));
+	
+	// Set The CC Field
+	var mailMIMEHeaderCC:NotesMIMEHeader = mailMIME.createHeader("CC");
+	mailMIMEHeaderCC.setHeaderVal(context.getUser().getDistinguishedName().toString());
+
+	// Send The eMail
+	mailDoc.send();
+	session.setConvertMime(true);
+	
+	// Recycle everything for the next person in the loop
+	uploadDoc.recycle();
+	mailStream.recycle();
+	mailMIME.recycle();
+	mailDoc.recycle();
+}
+
+sessionScope.remove("receiveRecipients");
+sessionScope.remove("receiveSubject");
+sessionScope.remove("receiveMessage");
+
+var msg = "Authorization Key(s) Have Been Sent."
+var info = javax.faces.application.FacesMessage.SEVERITY_INFO;
+facesContext.addMessage(this.getClientId(facesContext),new javax.faces.application.FacesMessage(info, msg, msg));}]]></xp:this.action>
+								</xp:eventHandler>
+							</xp:link>
+						</xp:panel>
+					</xp:this.facets>
+					<xe:formRow
+						id="formRow1"
+						label="Recipients"
+					>
+						<xp:inputText
+							id="fld_recipients"
+							value="#{sessionScope.receiveRecipients}"
+							style="width:97%"
+							required="true"
+							multipleSeparator=","
+						>
+							<xp:this.validators>
+								<xp:validateRequired
+									message="You must supply at least one recipient email address" />
+							</xp:this.validators>
+						</xp:inputText>
+					</xe:formRow>
+					<xe:formRow
+						id="formRow2"
+						label="Subject Line"
+					>
+						<xp:inputText
+							id="fld_subject"
+							style="width:97%"
+							required="true"
+							value="#{sessionScope.receiveSubject}"
+						>
+							<xp:this.validators>
+								<xp:validateRequired
+									message="You must supply a subject line" />
+							</xp:this.validators>
+						</xp:inputText>
+					</xe:formRow>
+					<xe:formRow
+						id="formRow6"
+						label="Message"
+					>
+						<xp:inputRichText
+							id="inputRichText1"
+							value="#{sessionScope.receiveMessage}"
+						>
+						</xp:inputRichText>
+					</xe:formRow>
+				</xe:formTable>
+				<xp:messages
+					id="messages1" />
+			</xp:panel>
+		</xp:panel>
+		<xc:layout_Footer />
+	</xp:panel>
+</xp:view>

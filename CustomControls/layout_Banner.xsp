@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view
+	xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xe="http://www.ibm.com/xsp/coreex"
+>
+	<xe:keepSessionAlive
+		id="keepSessionAlive1"
+	></xe:keepSessionAlive>
+	<xp:panel
+		styleClass="lotusBanner"
+		role="banner"
+	>
+		<xp:panel
+			styleClass="lotusRightCorner"
+		>
+			<xp:panel
+				styleClass="lotusInner"
+			>
+				<xp:link
+					escape="true"
+					text="Link"
+					id="link1"
+					value="##{id:lotusMainContent}"
+					accesskey="S"
+					styleClass="lotusAccess" />
+				<xp:image
+					url="/button_OpenNTF.jpg"
+					id="image1"
+				></xp:image>
+				<ul
+					class="lotusInlinelist lotusUtility"
+				>
+					<li
+						class="lotusFirst"
+					>
+						<xp:text
+							escape="true"
+							id="computedField1"
+							styleClass="lotusUser"
+						>
+							<xp:this.value><![CDATA[#{javascript:var myName:NotesName = session.createName(session.getEffectiveUserName());
+return myName.getCommon();}]]></xp:this.value>
+						</xp:text>
+					</li>
+					<!--					<xp:panel rendered="#{javascript:sessionScope.blogAuthor}">-->
+					<!--						<li>-->
+					<!--							<xp:link escape="true" text="Edit Profile"-->
+					<!--								id="link2" value="/Profile.xsp" />-->
+					<!--						</li>-->
+					<!--					</xp:panel>-->
+					<xp:panel
+						rendered="#{javascript:sessionScope.Config}"
+					>
+						<li>
+							<xp:link
+								escape="true"
+								text="Configuration"
+								id="link3"
+								value="/Config_Main.xsp" />
+						</li>
+					</xp:panel>
+					<xp:panel>
+						<xp:this.rendered><![CDATA[#{javascript:var myName:NotesName = session.createName(session.getEffectiveUserName());
+if (myName.getCommon() == "Anonymous"){
+	return true;
+} else {
+	return false;
+}}]]></xp:this.rendered>
+						<li>
+							<xp:link
+								escape="true"
+								text="Log In"
+								id="link4"
+							>
+								<xp:eventHandler
+									event="onclick"
+									submit="true"
+									refreshMode="complete"
+									immediate="true"
+								>
+									<xp:this.action><![CDATA[#{javascript:checkAuth();}]]></xp:this.action>
+								</xp:eventHandler>
+							</xp:link>
+						</li>
+					</xp:panel>
+					<xp:panel>
+						<xp:this.rendered><![CDATA[#{javascript:var myName:NotesName = session.createName(session.getEffectiveUserName());
+if (myName.getCommon() != "Anonymous"){
+	return true;
+} else {
+	return false;
+}}]]></xp:this.rendered>
+						<li>
+							<xp:link
+								escape="true"
+								text="Log Out"
+								id="link5"
+							>
+								<xp:this.value><![CDATA[#{javascript:facesContext.getExternalContext().getRequestContextPath() + "?logout"}]]></xp:this.value>
+								<xp:eventHandler
+									event="onclick"
+									submit="true"
+									refreshMode="complete"
+									immediate="true"
+								>
+								</xp:eventHandler>
+							</xp:link>
+						</li>
+					</xp:panel>
+				</ul>
+			</xp:panel>
+		</xp:panel>
+	</xp:panel>
+</xp:view>

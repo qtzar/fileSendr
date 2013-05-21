@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view
+	xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xe="http://www.ibm.com/xsp/coreex"
+>
+	<xp:panel
+		styleClass="lotusColLeft"
+	>
+		<xe:navigator
+			id="navigator1"
+		>
+			<xe:this.treeNodes>
+				<xe:basicContainerNode
+					label="Send Files"
+				>
+					<xe:this.children>
+						<xe:pageTreeNode
+							label="Send New Files"
+							page="sendFiles.xsp"
+							image="email_go.png" />
+						<xe:pageTreeNode
+							label="Sent Files"
+							page="showSent.xsp"
+							image="package_go.png" />
+					</xe:this.children>
+				</xe:basicContainerNode>
+			</xe:this.treeNodes>
+			<xe:this.rendered><![CDATA[#{javascript:if(applicationScope.enableSend == "true"){
+	return true;
+} else {
+	return false;
+}}]]></xe:this.rendered>
+		</xe:navigator>
+		<xe:navigator
+			id="navigator2"
+		>
+			<xe:this.rendered><![CDATA[#{javascript:if(applicationScope.enableReceive == "true"){
+	return true;
+} else {
+	return false;
+}}]]></xe:this.rendered>
+			<xe:this.treeNodes>
+				<xe:basicContainerNode
+					label="Receive Files"
+				>
+					<xe:this.children>
+						<xe:pageTreeNode
+							label="Send Authorization"
+							image="key_go.png"
+							page="sendAuth.xsp"
+						></xe:pageTreeNode>
+						<xe:pageTreeNode
+							label="Received Files"
+							image="package_green.png"
+							page="showReceived.xsp"
+						>
+						</xe:pageTreeNode>
+					</xe:this.children>
+				</xe:basicContainerNode>
+			</xe:this.treeNodes>
+		</xe:navigator>
+	</xp:panel>
+</xp:view>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><note class="form" replicaid="852576A90050C2DD" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="2b2" sequence="10" unid="C02239706A0C2B7A852578010064D5BA">
+<created><datetime>20101222T132123,14-05</datetime></created>
+<modified><datetime dst="true">20110716T133037,49-04</datetime></modified>
+<revised><datetime dst="true">20110716T133037,48-04</datetime></revised>
+<lastaccessed><datetime dst="true">20110716T133037,49-04</datetime></lastaccessed>
+<addedtofile><datetime>20110124T150329,48-05</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Declan Sciolla-Lynch/O=Imagination</name></updatedby>
+<wassignedby><name>CN=Declan Sciolla-Lynch/O=Imagination</name></wassignedby>
+<item name="$FlagsExt" sign="true"><text>D</text></item>
+<item name="$TITLE" sign="true"><text>appLogo.png</text></item>
+<item name="$FileModDT" sign="true"><datetime>20110109T153629,00-05</datetime></item>
+<item name="$Flags"><text>345CgQ</text></item>
+<item name="$Comment" sign="true"><text>fileSendr V1.1.0</text></item>
+<item name="$DesignerVersion"><text>8.5.3</text></item>
+
+
+
+<item name="$FileNames" sign="true"><text>appLogo.png</text></item></note>

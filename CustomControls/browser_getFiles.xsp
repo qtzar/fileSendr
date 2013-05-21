@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view
+	xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom"
+>
+	<xp:panel
+		styleClass="lotusFrame"
+	>
+		<xc:layout_Banner />
+		<xc:layout_TitleBar />
+		<xc:layout_PlaceBar />
+		<xp:panel
+			styleClass="lotusMain"
+		>
+			<xc:layout_Sidebar>
+				<xc:this.rendered><![CDATA[#{javascript:var myName:NotesName = session.createName(session.getEffectiveUserName());
+if (myName.getCommon() == "Anonymous"){
+	return false;
+} else {
+	return true;
+}}]]></xc:this.rendered>
+			</xc:layout_Sidebar>
+			<xc:content_getFiles />
+		</xp:panel>
+		<xc:layout_Footer />
+	</xp:panel>
+</xp:view>

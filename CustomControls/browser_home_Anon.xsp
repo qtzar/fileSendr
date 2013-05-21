@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view
+	xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex"
+>
+	<xp:panel
+		styleClass="lotusFrame"
+	>
+		<xc:layout_Banner />
+		<xc:layout_TitleBar />
+		<xc:layout_PlaceBar />
+		<xp:panel
+			styleClass="lotusMain"
+		>
+			<xp:panel
+				styleClass="lotusContent"
+			>
+				<xe:formTable
+					id="formTable1"
+					formTitle="Download Files"
+					formDescription="Enter The File Access Code You Received In Your Email Message To Access Your Downloads."
+				>
+					<xe:this.rendered><![CDATA[#{javascript:if(applicationScope.enableSend == "true"){
+	return true;
+} else {
+	return false;
+}}]]></xe:this.rendered>
+					<xp:this.facets>
+						<xp:panel
+							xp:key="footer"
+							id="panel1"
+						>
+							<xp:link
+								escape="true"
+								text="Download Files"
+								id="btnSave"
+								outerStyleClass="lotusBtn"
+							>
+								<xp:eventHandler
+									event="onclick"
+									submit="true"
+									refreshMode="complete"
+									id="eventHandler1"
+								>
+									<xp:this.action
+										id="this.action1"
+									><![CDATA[#{javascript:context.redirectToPage("/getFiles.xsp?AccessID=" + sessionScope.AccessCode)}]]></xp:this.action>
+								</xp:eventHandler>
+							</xp:link>
+						</xp:panel>
+					</xp:this.facets>
+					<xe:formRow
+						id="formRow1"
+						label="Access Code"
+					>
+						<xp:inputText
+							value="#{sessionScope.AccessCode}"
+							id="fld_AppName"
+						>
+						</xp:inputText>
+					</xe:formRow>
+				</xe:formTable>
+				<xe:formTable
+					id="formTable2"
+					formTitle="Upload Files"
+					formDescription="Enter The Authorization Code You Received In Your Email Message To Upload Files To The Sender."
+				>
+					<xe:this.rendered><![CDATA[#{javascript:if(applicationScope.enableReceive == "true"){
+	return true;
+} else {
+	return false;
+}}]]></xe:this.rendered>
+					<xp:this.facets>
+						<xp:panel
+							xp:key="footer"
+							id="panel2"
+						>
+							<xp:link
+								escape="true"
+								text="Upload Files"
+								id="link2"
+								outerStyleClass="lotusBtn"
+							>
+								<xp:eventHandler
+									event="onclick"
+									submit="true"
+									refreshMode="complete"
+									id="eventHandler3"
+								>
+									<xp:this.action
+										id="this.action3"
+									><![CDATA[#{javascript:context.redirectToPage("/uploadFiles.xsp?AuthID=" + sessionScope.AuthCode)}]]></xp:this.action>
+								</xp:eventHandler>
+							</xp:link>
+						</xp:panel>
+					</xp:this.facets>
+					<xe:formRow
+						id="formRow3"
+						label="Authorization Code"
+					>
+						<xp:inputText
+							value="#{sessionScope.AuthCode}"
+							id="inputText1"
+						>
+						</xp:inputText>
+					</xe:formRow>
+				</xe:formTable>
+			</xp:panel>
+		</xp:panel>
+		<xc:layout_Footer />
+	</xp:panel>
+</xp:view>

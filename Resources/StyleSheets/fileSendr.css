@@ -1,0 +1,362 @@
+/*** Fix oneUI to allow Title In TitleBar ***/
+.lotusTitleBar h2 {
+	width: 100%;
+	float: none;
+	margin: 0px;
+}
+
+/*** Fix For Lotus Widget H2 ***/
+.lotusWidget2 h2 {
+	background-position: left top;
+	background-repeat: repeat-x;
+	border-style: solid;
+	border-width: 1px 0;
+	cursor: move;
+	overflow: hidden;
+	margin: 0px;
+}
+
+/*** Special version Of lotusWidget for non-owners ***/
+.lotusWidgetViewer {
+	border-color: #E8ECEE;
+	border-width: 0 1px 1px 1px;
+	border-style: solid;
+	margin: 0 0 10px 0;
+}
+
+.lotusWidgetViewer h2 {
+	zoom: 1;
+}
+
+.lotusWidgetViewer h2 {
+	background-position: left top;
+	background-repeat: repeat-x;
+	padding: 4px 3px 4px 10px;
+	overflow: hidden;
+	border-width: 1px 0;
+	border-style: solid;
+	margin: 0px;
+	background-color: #E8ECEE;
+	background-image: url("/.ibmxspres/domino/oneuiv2/images/titleBkgd.png")
+		;
+	border-color: #E8ECEE;
+}
+
+.lotusWidgetViewer .lotusWidgetBody h2 {
+	border-width: 0;
+	background-image: none;
+}
+
+.lotusWidgetViewer h2 img {
+	margin-left: 3px
+}
+
+.lotusWidgetViewer h2 a.lotusIcon {
+	float: right;
+	width: 18px;
+	height: 18px;
+	background-position: center center;
+	background-repeat: no-repeat
+}
+
+.lotusImagesOff .lotusWidgetViewer h2 a.lotusIcon {
+	font-size: .8em;
+	font-weight: normal;
+	width: auto;
+	height: auto
+}
+
+.lotusWidgetViewer h2 .lotusDivider {
+	float: right
+}
+
+.lotusWidgetViewer h3 {
+	padding: 4px 0;
+	overflow: hidden;
+	border-bottom: 1px solid;
+	line-height: 1em;
+	height: 1.3em;
+	font-size: 1em;
+	font-weight: normal;
+	color: #444;
+	border-bottom-color: #e8ecee
+}
+
+.lotusWidgetViewer h3 a.lotusAction {
+	font-size: .9em;
+	padding: 4px 0 5px 0
+}
+
+.lotusWidgetViewer .lotusWidgetBody {
+	clear: both;
+	padding: 3px 10px
+}
+
+.lotusWidgetViewer .lotusWidgetBody .lotusSection {
+	margin-top: 0px;
+}
+
+.lotusWidgetViewer .lotusWidgetBody div.lotusChunk {
+	margin-top: 5px;
+	clear: both;
+	zoom: 1
+}
+
+.lotusWidgetViewer .lotusWidgetFooter {
+	padding: 4px 10px 7px 10px;
+	border-top-width: 1px;
+	border-top-style: solid;
+	height: 1.3em;
+	clear: both;
+	border-top-color: #e8ecee;
+}
+
+.lotusWidgetViewer .lotusWidgetFooter ul.lotusVCard {
+	margin-left: 95px;
+	margin-top: 5px
+}
+
+.lotusWidgetViewer .lotusWidgetFooter img {
+	vertical-align: top
+}
+
+.lotusWidgetViewer h2 a.lotusActionMenu {
+	background-image:
+		url("/.ibmxspres/domino/oneuiv2/images/iconActions.png")
+}
+
+.lotusWidgetViewer h2 a.lotusActionMenu:hover,.lotusWidget h2 a.lotusActionMenu:focus
+	{
+	background-image:
+		url("/.ibmxspres/domino/oneuiv2/images/iconActionsHover.png");
+}
+
+.lotusSpritesOn .lotusWidgetViewer h2 {
+	background-image:
+		url("/.ibmxspres/domino/oneuiv2/DefaultTheme/themeImages/lotusHorzBgSprite-8bit.png")
+		;
+	background-position: 0 -900px;
+}
+
+.lotusSpritesOn .lotusWidgetViewer h2 a.lotusActionMenu {
+	background-image:
+		url("/.ibmxspres/domino/oneuiv2/DefaultTheme/themeImages/lotusSprite-8bit.png")
+		;
+	background-position: 3px -1921px;
+}
+
+.lotusSpritesOn .lotusWidgetViewer h2 a.lotusActionMenu:hover,.lotusSpritesOn .lotusWidgetViewer h2 a.lotusActionMenu:focus
+	{
+	background-image:
+		url("/.ibmxspres/domino/oneuiv2/DefaultTheme/themeImages/lotusSprite-8bit.png")
+		;
+	background-position: 3px -2011px;
+}
+
+/*** Lotus Logo Replacement ***/
+.lotusui .lotusLogo,.lotusLoginLogo {
+	background-image: url("button_OpenNTF.jpg");
+}
+
+/*** Lotus Login Panel Fix For Images ***/
+.lotusLoginForm img {
+	position: relative;
+	top: 0px;
+	left: 0px;
+}
+
+/*** Breadcrumb ***/
+.crumbs {
+	width: auto;
+	float: left;
+	margin: 0 auto;
+	padding: 0;
+	line-height: 37px;
+}
+
+.crumbs a {
+	text-decoration: none;
+	margin: 0 5px 0 0;
+	padding: 11px 15px 12px 6px;
+	background: transparent url("crumbs.gif") no-repeat right center;
+}
+
+.crumbs span.house {
+	margin: 0 5px 0 0;
+	padding: 11px 15px 10px 6px;
+	background: transparent url("crumbs.gif") no-repeat right center;
+}
+
+.crumbs span {
+	margin: 0 5px 0 0;
+	padding: 11px 15px 12px 6px;
+	background: transparent url("crumbs.gif") no-repeat right center;
+}
+
+.crumbs img.house {
+	margin: -2px 5px 0 0;
+	padding: 11px 15px 10px 6px;
+	background: transparent url("crumbs.gif") no-repeat right center;
+}
+
+.crumbs img {
+	margin: -1px -1px -1px -1px;
+	padding: 10px 0px 9px 0px;
+}
+
+.configSBLayoutTable {
+	background-color: #CCE7FE;
+	border-collapse: collapse;
+}
+
+.configSBLayoutTableHeader {
+	border-width: 1px;
+	border-style: solid;
+	border-color: #000000;
+	text-color: #ffffff;
+	padding: 5px;
+	background-color: #567890;
+	text-align: center;
+	font-weight: strong;
+	font-size: 14px;
+	-webkit-border-top-left-radius: 5px;
+	-webkit-border-top-right-radius: 5px;
+	-moz-border-radius-topleft: 5px;
+	-moz-border-radius-topright: 5px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+.configSBLayoutTableFooter {
+	border-width: 1px;
+	border-style: solid;
+	border-color: #000000;
+	padding: 5px;
+	background-color: #567890;
+	text-align: center;
+	-webkit-border-bottom-right-radius: 5px;
+	-webkit-border-bottom-left-radius: 5px;
+	-moz-border-radius-bottomright: 5px;
+	-moz-border-radius-bottomleft: 5px;
+	border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
+
+.configSBLayoutTablePanel {
+	border-width: 1px;
+	border-style: solid;
+	border-color: #000000;
+	min-height: 500px;
+}
+
+.sbDragPanel {
+	background-color: rgb(192, 192, 192);
+	margin-left: 3.0px;
+	margin-right: 3.0px;
+	margin-top: 3.0px;
+	margin-bottom: 3.0px;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	padding-left: 3.0px;
+	padding-right: 3.0px;
+	padding-top: 3.0px;
+	padding-bottom: 3.0px
+}
+
+.widgetList {
+	list-style-type: none;
+	padding: 0px;
+	margin: 0px;
+}
+
+.widgetList li {
+	background-image: url(bullet_blue.png);
+	background-repeat: no-repeat;
+	background-position: 0px -1px;
+	padding-left: 15px;
+}
+
+.uploadBtn {
+	border: 1px solid #333333;
+	background-color: #d0d0d0;
+	font-size: 14px;
+	width: 201px;
+	height: 30px;
+	vertical-align: middle; /* emulates a <button> if node is not */
+	text-align: center;
+}
+
+.uploadHover {
+	border: 1px solid #ff0000;
+	cursor: pointer;
+	font-weight: bold;
+}
+
+.uploadPress {
+	border: 1px solid #00ff00;
+}
+
+.uploadDisabled {
+	background-image: none;
+	background-color: #666;
+	color: #999;
+	border: 1px solid #999;
+}
+
+/*
+Uploadify v2.1.4
+Release Date: November 8, 2010
+
+Copyright (c) 2010 Ronnie Garcia, Travis Nickels
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
+.uploadifyQueueItem {
+	background-color: #F5F5F5;
+	border: 2px solid #E5E5E5;
+	font: 11px Verdana, Geneva, sans-serif;
+	margin-top: 5px;
+	padding: 10px;
+	width: 350px;
+}
+
+.uploadifyError {
+	background-color: #FDE5DD !important;
+	border: 2px solid #FBCBBC !important;
+}
+
+.uploadifyQueueItem .cancel {
+	float: right;
+}
+
+.uploadifyQueue .completed {
+	background-color: #E5E5E5;
+}
+
+.uploadifyProgress {
+	background-color: #E5E5E5;
+	margin-top: 10px;
+	width: 100%;
+}
+
+.uploadifyProgressBar {
+	background-color: #0099FF;
+	height: 3px;
+	width: 1px;
+}

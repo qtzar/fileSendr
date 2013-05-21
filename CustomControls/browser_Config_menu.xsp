@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view
+	xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xe="http://www.ibm.com/xsp/coreex"
+>
+	<xp:panel
+		styleClass="lotusColLeft"
+	>
+		<xe:navigator
+			id="navigator1"
+			expandEffect="wipe"
+			expandable="true"
+		>
+			<xe:this.treeNodes>
+				<xe:basicContainerNode
+					label="FileSendr Configuration"
+				>
+					<xe:this.children>
+						<xe:pageTreeNode
+							label="Application Settings"
+							page="Config_Main.xsp"
+						></xe:pageTreeNode>
+						<xe:pageTreeNode
+							label="Login Screen Settings"
+							page="Config_Login.xsp"
+						></xe:pageTreeNode>
+					</xe:this.children>
+				</xe:basicContainerNode>
+			</xe:this.treeNodes>
+		</xe:navigator>
+		<xe:navigator
+			id="navigator2"
+			expandEffect="wipe"
+			expandable="true"
+		>
+			<xe:this.treeNodes>
+				<xe:basicContainerNode
+					label="Send Files"
+				>
+					<xe:this.children>
+						<xe:pageTreeNode
+							label="Send Files Settings"
+							page="Config_Send_Main.xsp"
+						></xe:pageTreeNode>
+						<xe:pageTreeNode
+							label="EMail Settings"
+							page="Config_Send_EMail.xsp"
+						></xe:pageTreeNode>
+						<xe:pageTreeNode
+							label="Amazon S3 Settings"
+							page="Config_Send_Amazon.xsp"
+						>
+							<xe:this.rendered><![CDATA[#{javascript:if(applicationScope.fileStorage == "S3"){
+	return true;
+} else {
+	return false;
+}}]]></xe:this.rendered>
+						</xe:pageTreeNode>
+					</xe:this.children>
+				</xe:basicContainerNode>
+			</xe:this.treeNodes>
+			<xe:this.rendered><![CDATA[#{javascript:if(applicationScope.enableSend == "true"){
+	return true;
+} else {
+	return false;
+}}]]></xe:this.rendered>
+		</xe:navigator>
+		<xe:navigator
+			id="navigator3"
+			expandEffect="wipe"
+			expandable="true"
+		>
+			<xe:this.treeNodes>
+				<xe:basicContainerNode
+					label="Receive Files"
+				>
+					<xe:this.children>
+						<xe:pageTreeNode
+							label="Receive Files Settings"
+							page="Config_Receive_Main.xsp"
+						></xe:pageTreeNode>
+						<xe:pageTreeNode
+							label="EMail Settings"
+							page="Config_Receive_EMail.xsp"
+						></xe:pageTreeNode>
+						<xe:pageTreeNode
+							label="Amazon S3 Settings"
+							page="Config_Receive_Amazon.xsp"
+						>
+							<xe:this.rendered><![CDATA[#{javascript:if(applicationScope.receiveStorage == "S3"){
+	return true;
+} else {
+	return false;
+}}]]></xe:this.rendered>
+						</xe:pageTreeNode>
+					</xe:this.children>
+				</xe:basicContainerNode>
+			</xe:this.treeNodes>
+			<xe:this.rendered><![CDATA[#{javascript:if(applicationScope.enableReceive == "true"){
+	return true;
+} else {
+	return false;
+}}]]></xe:this.rendered>
+		</xe:navigator>
+	</xp:panel>
+</xp:view>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view
+	xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom"
+>
+	<xp:panel
+		styleClass="lotusFrame"
+	>
+		<xc:layout_Banner />
+		<xc:layout_TitleBar />
+		<xc:layout_PlaceBar />
+		<xp:panel
+			styleClass="lotusMain"
+		>
+			<xc:layout_Sidebar />
+			<xp:panel
+				styleClass="lotusContent"
+			>
+				<xp:viewPanel
+					rows="30"
+					id="viewPanel1"
+					viewStyle="width:100%"
+					var="myAuthViewEntry"
+				>
+					<xp:this.facets>
+						<xp:pager
+							partialRefresh="true"
+							layout="Previous Group Next"
+							xp:key="headerPager"
+							id="pager1" />
+					</xp:this.facets>
+					<xp:this.data>
+						<xp:dominoView
+							var="authView"
+							viewName="vw_Auth"
+							categoryFilter="#{javascript:session.getEffectiveUserName()}" />
+					</xp:this.data>
+					<xp:this.rendered><![CDATA[#{javascript:getComponent("viewPanel1").getRowCount() > 0}]]></xp:this.rendered>
+					<xp:viewColumn
+						columnName="AuthKey"
+						id="viewColumn1"
+						displayAs="link"
+						openDocAsReadonly="true"
+					>
+						<xp:this.pageUrl><![CDATA[#{javascript:"/uploadFiles.xsp?AuthID=" + myAuthViewEntry.getColumnValue("AuthKey")}]]></xp:this.pageUrl>
+						<xp:viewColumnHeader
+							value="AuthKey"
+							id="viewColumnHeader1" />
+					</xp:viewColumn>
+					<xp:viewColumn
+						columnName="Uploader"
+						id="viewColumn2"
+					>
+						<xp:viewColumnHeader
+							value="Uploader"
+							id="viewColumnHeader2" />
+					</xp:viewColumn>
+				</xp:viewPanel>
+				<xp:panel
+					styleClass="lotusMessage"
+				>
+					You currently do not have any files to receive in the system.
+					<xp:this.rendered><![CDATA[#{javascript:getComponent("viewPanel1").getRowCount() < 1}]]></xp:this.rendered>
+				</xp:panel>
+			</xp:panel>
+		</xp:panel>
+		<xc:layout_Footer />
+	</xp:panel>
+</xp:view>

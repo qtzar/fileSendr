@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view
+	xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex"
+>
+	<xp:panel
+		styleClass="lotusFrame"
+	>
+		<xc:layout_Banner />
+		<xc:layout_TitleBar />
+		<xc:layout_PlaceBar />
+		<xp:panel
+			styleClass="lotusMain"
+		>
+			<xc:browser_Config_menu />
+			<xp:panel
+				styleClass="lotusContent"
+			>
+				<xe:formTable
+					id="formTable1"
+					formTitle="Receive Files Settings"
+					formDescription="These are the basic receive files settings for the application"
+					disableErrorSummary="true"
+					disableRowError="true"
+				>
+					<xp:this.facets>
+						<xp:panel
+							xp:key="footer"
+							id="panel1"
+						>
+							<xp:link
+								escape="true"
+								text="Save Configuration"
+								id="link1"
+								outerStyleClass="lotusBtn"
+							>
+								<xp:eventHandler
+									event="onclick"
+									submit="true"
+									refreshMode="complete"
+								>
+									<xp:this.action><![CDATA[#{javascript:var configView:NotesView = database.getView("lkp_cfg_ActiveConfig");
+var configDoc:NotesDocument = configView.getFirstDocument();
+configDoc.replaceItemValue("cfg_basic_receiveStorage",applicationScope.receiveStorage);
+configDoc.replaceItemValue("cfg_basic_receiveMaxDownload",applicationScope.receiveMaxUpload);
+configDoc.replaceItemValue("cfg_basic_receiveMaxHistory",applicationScope.receiveMaxHistory);
+configDoc.save(true,true);
+
+var msg = "Configuration Saved"
+var info = javax.faces.application.FacesMessage.SEVERITY_INFO;
+facesContext.addMessage(this.getClientId(facesContext),new javax.faces.application.FacesMessage(info, msg, msg));
+}]]></xp:this.action>
+								</xp:eventHandler>
+							</xp:link>
+						</xp:panel>
+					</xp:this.facets>
+					<xe:formRow
+						id="formRow5"
+						label="File Storage"
+					>
+						<xp:radioGroup
+							id="radioGroup1"
+							value="#{applicationScope.receiveStorage}"
+						>
+							<xp:selectItem
+								itemLabel="Local Storage"
+								itemValue="local" />
+						</xp:radioGroup>
+						<xp:panel
+							styleClass="lotusMessage lotusInfo"
+						> Amazon S3 Storage Has been Disabled In This Version. </xp:panel>
+					</xe:formRow>
+					<xe:formRow
+						id="formRow7"
+						label="Max Upload Days"
+					>
+						<xp:inputText
+							id="inputText3"
+							value="#{applicationScope.receiveMaxUpload}"
+							style="width:100%"
+						>
+							<xp:this.converter>
+								<xp:convertNumber
+									type="number"
+									integerOnly="true" />
+							</xp:this.converter>
+						</xp:inputText>
+					</xe:formRow>
+					<xe:formRow
+						id="formRow8"
+						label="Max History Days"
+					>
+						<xp:inputText
+							id="inputText4"
+							value="#{applicationScope.receiveMaxHistory}"
+							style="width:100%"
+						>
+							<xp:this.converter>
+								<xp:convertNumber
+									type="number"
+									integerOnly="true" />
+							</xp:this.converter>
+						</xp:inputText>
+					</xe:formRow>
+				</xe:formTable>
+				<xp:messages
+					id="messages1" />
+			</xp:panel>
+		</xp:panel>
+		<xc:layout_Footer />
+	</xp:panel>
+</xp:view>

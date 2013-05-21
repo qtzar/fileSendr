@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><note class="form" replicaid="852576A90050C2DD" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="7d2" sequence="1" unid="AC2B4D5F3200B79A852578CF0061A347">
+<created><datetime dst="true">20110716T134627,91-04</datetime></created>
+<modified><datetime dst="true">20110716T134630,17-04</datetime></modified>
+<revised><datetime dst="true">20110716T134630,16-04</datetime></revised>
+<lastaccessed><datetime dst="true">20110716T134630,17-04</datetime></lastaccessed>
+<addedtofile><datetime dst="true">20110716T134630,17-04</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Declan Sciolla-Lynch/O=Imagination</name></updatedby>
+<wassignedby><name>CN=Declan Sciolla-Lynch/O=Imagination</name></wassignedby>
+<item name="$TITLE"><text>button_OpenNTF.jpg</text></item>
+<item name="$FlagsExt" sign="true"><text>D</text></item>
+<item name="$ImagesWide" sign="true"><number>1</number></item>
+<item name="$ImagesHigh" sign="true"><number>1</number></item>
+<item name="$ImagesColorize" sign="true"><number>0</number></item>
+
+
+<item name="$MimeType" sign="true"><text>image/jpeg</text></item>
+<item name="$FileModDT" sign="true"><datetime>20100107T101149,34-05</datetime></item>
+<item name="$ImageNames" sign="true"><text>button_OpenNTF.jpg</text></item>
+<item name="$Flags"><text>34CiQ</text></item>
+<item name="$Comment" sign="true"><text>iWatch V2.0.0</text></item>
+<item name="$DesignerVersion" sign="true"><text>8.5.3</text></item></note>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><note class="form" replicaid="852576A90050C2DD" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="292" sequence="35" unid="4C0565EFF729A0208525780100644049">
+<created><datetime>20101222T131500,57-05</datetime></created>
+<modified><datetime dst="true">20110718T103336,00-04</datetime></modified>
+<revised><datetime dst="true">20110718T103131,62-04</datetime></revised>
+<lastaccessed><datetime dst="true">20110718T103336,00-04</datetime></lastaccessed>
+<addedtofile><datetime>20101222T131502,02-05</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Declan Sciolla-Lynch/O=Imagination</name></updatedby>
+<wassignedby><name>CN=Declan Sciolla-Lynch/O=Imagination</name></wassignedby>
+<item name="$TITLE"><text>iPad.theme</text></item>
+<item name="$Flags"><text>34567Cg~`</text></item>
+<item name="$Comment" sign="true"><text>fileSendr V1.1.0</text></item>
+<item name="$DesignerVersion"><text>8.5.2</text></item>
+
+
+<item name="$FileNames" sign="true"><text>iPad.theme</text></item>
+<item name="$CSSFiles"><textlist><text>iPad.css</text></textlist></item></note>

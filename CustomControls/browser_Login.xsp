@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view
+	xmlns:xp="http://www.ibm.com/xsp/core"
+>
+	<xp:this.resources>
+		<xp:dojoModule
+			name="dojo.cookie" />
+	</xp:this.resources>
+	<xp:panel
+		styleClass="lotusLoginBox"
+	>
+		<xp:panel
+			styleClass="lotusLoginContent"
+		>
+			<xp:panel
+				styleClass="lotusLogo"
+			>
+				<xp:span
+					styleClass="lotusAltText"
+				>An OpenNTF Project</xp:span>
+			</xp:panel>
+			<xp:image
+				url="/appLogo.png"
+				style="height:175px;width:175px"
+				id="appLogo" />
+			<xp:panel
+				styleClass="lotusLoginForm"
+			>
+				<xp:text
+					escape="true"
+					id="computedField1"
+					tagName="h1"
+					value="#{applicationScope.appName}" />
+				<xp:text
+					escape="true"
+					id="computedField2"
+					value="#{applicationScope.appDesc}"
+					tagName="h2" />
+				<xp:panel
+					id="cc_login_panel_login_content"
+				>
+					<xp:table
+						style="width:100.0%"
+					>
+						<xp:tr>
+							<xp:td>User Name</xp:td>
+							<xp:td>
+								<xp:inputText
+									id="cc_login_panel_login_username"
+									title="username"
+									value="#{sessionScope.cc_login_panel_login_username}" />
+							</xp:td>
+						</xp:tr>
+						<xp:tr>
+							<xp:td>Password</xp:td>
+							<xp:td>
+								<xp:inputText
+									id="cc_login_panel_login_password"
+									password="true"
+									title="password"
+									value="#{sessionScope.cc_login_panel_login_password}" />
+							</xp:td>
+						</xp:tr>
+						<xp:tr>
+							<xp:td>Remember Me</xp:td>
+							<xp:td>
+								<xp:checkBox
+									text=""
+									id="checkBox1"
+									defaultChecked="true"
+									value="#{sessionScope.cc_login_panel_login_remember}" />
+							</xp:td>
+						</xp:tr>
+						<xp:tr>
+							<xp:td />
+							<xp:td>
+								<xp:link
+									escape="true"
+									text="Login"
+									id="link1"
+									outerStyleClass="lotusBtn lotusBtnSpecial lotusRight"
+								>
+									<xp:eventHandler
+										event="onclick"
+										submit="false"
+									>
+										<xp:this.script><![CDATA[dojo.style("#{id:cc_login_panel_login_content}","display","none");
+dojo.style("#{id:cc_login_panel_login_wait}","display","block");
+
+dojo.xhrPost({ 
+                url: '/names.nsf?login', 
+                content: {
+					"username" : dojo.byId("#{id:cc_login_panel_login_username}").value,
+					"password" : dojo.byId("#{id:cc_login_panel_login_password}").value,
+					"RedirectTo": "\\icons\\view.gif"    
+					}, 
+                load: function (data) {
+                if( String(data).substring(0,3) == "GIF") 
+                        { 
+                                dojo.style("#{id:cc_login_panel_login_wait}","display","none");
+								dojo.style("#{id:cc_login_panel_login_success}","display","block");
+                                window.location = "#{javascript:sessionScope.entryPage}"
+                        } else { 
+                                if ( dojo.cookie('DomAuthSessId') != null || dojo.cookie('LtpaToken') != null ) 
+                                { 
+                                        dojo.style("#{id:cc_login_panel_login_wait}","display","none");
+										dojo.style("#{id:cc_login_panel_login_notauth}","display","block");
+                                        dojo.cookie('DomAuthSessId', null, { path: '/', domain: 'czarnowski.com' }); 
+                                        dojo.cookie('LtpaToken', null, { path: '/', domain: 'czarnowski.com' }); 
+                                } else { 
+										dojo.style("#{id:cc_login_panel_login_wait}","display","none");
+										dojo.style("#{id:cc_login_panel_login_failed}","display","block");
+                                } 
+                        } 
+                        }, 
+                error: function (error) { 
+                        console.error ('Error: ', error);
+   						//IE Has An Issue with returning binary data in AJAX so just reload the page.
+   						// If the user did not log in correctly then they will be redirected here.
+   						console.error ('Possibly Running IE - Reloading Page Anyway');
+   						window.location = "#{javascript:sessionScope.entryPage}" 
+                        } 
+                }); 
+]]></xp:this.script>
+									</xp:eventHandler>
+								</xp:link>
+							</xp:td>
+						</xp:tr>
+					</xp:table>
+				</xp:panel>
+				<xp:panel
+					id="cc_login_panel_login_wait"
+					style="display:none"
+				>
+					<center>
+						<xp:image
+							url="/res_login_Check.png"
+							id="image5"
+							style="height:64px;width:64px" />
+						<xp:br />
+						Checking...
+						<xp:br />
+						<xp:br />
+					</center>
+				</xp:panel>
+				<xp:panel
+					id="cc_login_panel_login_failed"
+					style="display:none"
+				>
+					<center>
+						<xp:image
+							url="/res_login_Invalid.png"
+							id="image2"
+							style="height:64px;width:64px" />
+						<xp:br />
+						Invalid Username Or Password
+					</center>
+					<xp:br />
+					<xp:link
+						escape="true"
+						text="Please Try Again"
+						id="link2"
+						outerStyleClass="lotusBtn lotusBtnSpecial lotusRight"
+					>
+						<xp:eventHandler
+							event="onclick"
+							submit="false"
+						>
+							<xp:this.script><![CDATA[dojo.style("#{id:cc_login_panel_login_failed}","display","none");
+dojo.style("#{id:cc_login_panel_login_content}","display","block");   ]]></xp:this.script>
+						</xp:eventHandler>
+					</xp:link>
+				</xp:panel>
+				<xp:panel
+					id="cc_login_panel_login_notauth"
+					style="display:none"
+				>
+					<center>
+						<xp:image
+							url="/res_login_NotAuth.png"
+							id="image3"
+							style="height:64px;width:64px" />
+						<xp:br />
+						Not Authorized For Access
+					</center>
+					<xp:br />
+					<xp:link
+						escape="true"
+						text="Please Try Again"
+						id="link3"
+						outerStyleClass="lotusBtn lotusBtnSpecial lotusRight"
+					>
+						<xp:eventHandler
+							event="onclick"
+							submit="false"
+						>
+							<xp:this.script><![CDATA[dojo.style("#{id:cc_login_panel_login_notauth}","display","none");
+dojo.style("#{id:cc_login_panel_login_content}","display","block");   ]]></xp:this.script>
+						</xp:eventHandler>
+					</xp:link>
+				</xp:panel>
+				<xp:panel
+					id="cc_login_panel_login_success"
+					style="display:none"
+				>
+					<center>
+						<xp:image
+							url="/res_login_Accept.png"
+							id="image4"
+							style="height:64px;width:64px" />
+						<xp:br />
+						Access Granted
+						<br />
+						Loading....
+					</center>
+				</xp:panel>
+			</xp:panel>
+			<xp:panel
+				styleClass="lotusDescription"
+			>
+				<xp:text
+					escape="true"
+					id="computedField3"
+					value="#{applicationScope.loginMarketTitle}"
+					tagName="h2" />
+				<xp:text
+					escape="true"
+					id="computedField4"
+					value="#{applicationScope.loginMarketText}"
+					tagName="p" />
+			</xp:panel>
+		</xp:panel>
+		<table
+			cellspacing="0"
+			role="presentation"
+			class="lotusLegal"
+		>
+			<tbody>
+				<tr>
+					<td
+						class="lotusLicense"
+					>
+						<xp:text
+							escape="true"
+							id="computedField5"
+							value="#{applicationScope.loginLegal1}" />
+					</td>
+				</tr>
+				<tr>
+					<td
+						class="lotusLicense"
+					>
+						<xp:text
+							escape="true"
+							id="computedField6"
+							value="#{applicationScope.loginLegal2}" />
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</xp:panel>
+</xp:view>
